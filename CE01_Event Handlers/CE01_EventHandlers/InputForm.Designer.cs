@@ -205,6 +205,7 @@
             this.btn_saveChanges.TabIndex = 18;
             this.btn_saveChanges.Text = "Save Changes";
             this.btn_saveChanges.UseVisualStyleBackColor = false;
+            this.btn_saveChanges.Click += new System.EventHandler(this.btn_saveChanges_Click);
             // 
             // InputForm
             // 

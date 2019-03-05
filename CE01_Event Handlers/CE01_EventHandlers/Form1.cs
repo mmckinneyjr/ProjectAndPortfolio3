@@ -17,7 +17,8 @@ namespace CE01_EventHandlers
 
         InputForm input;
         Movie m;
-
+        int lbLike;
+        int lbDislike;
 
         public Form1()
         {
@@ -25,13 +26,7 @@ namespace CE01_EventHandlers
             HandleClientWindowSize();
         }
 
-
-
-
-
-
-
-
+        
 
 
         //Written by Keith Webster. Used with permission. Not to be distributed.
@@ -55,36 +50,31 @@ namespace CE01_EventHandlers
         }
 
         //Add movie to listBox button
-        private void btn_new_Click(object sender, EventArgs e)
-        {
+        private void btn_new_Click(object sender, EventArgs e)  {
             input = new InputForm();
-            input.addNewMovie += AddMovieHandler;
+            input.AddNewMovie += AddMovieHandler;
             input.ShowDialog();
         }
 
         //Add movie to listBox handler
-        private void AddMovieHandler(object sender, CustomEventArgs e)
-        {
-            if (e.movieModify.like == true)
-            {
+        private void AddMovieHandler(object sender, CustomEventArgs e)  {
+            if (e.movieModify.like == true)  {
                 listBox_like.Items.Add(e.movieModify);
             }
-            else if (e.movieModify.dislike == true)
-            {
+            else if (e.movieModify.dislike == true) {
                 listBox_dislike.Items.Add(e.movieModify);
             }
+            input.UpdateMovie += MovieDataUpdate;
         }
 
         //Open LIKE listbox item
         private void listBox_like_DoubleClick(object sender, EventArgs e)  {
             SelectMovie += input.InsertMovieData;
             m = new Movie();
-
             if (SelectMovie != null && listBox_like.Focused == true)  {
                 m = (Movie)listBox_like.SelectedItem;
                 SelectMovie(this, new CustomEventArgs(m));
             }
-
             input.ShowDialog();
         }
 
@@ -95,7 +85,22 @@ namespace CE01_EventHandlers
             if (SelectMovie != null && listBox_dislike.Focused == true) {
                 m = (Movie)listBox_dislike.SelectedItem;
                 SelectMovie(this, new CustomEventArgs(m));
-                input.ShowDialog();
+            }
+            input.ShowDialog();
+        }
+
+
+        //Update ListView
+        private void MovieDataUpdate(object sender, CustomEventArgs e)  {
+            if (e.movieModify.like == true) {
+                int index = listBox_like.SelectedIndex;
+                listBox_like.Items.RemoveAt(index);
+                listBox_like.Items.Insert(index, e.movieModify);
+            }
+            if (e.movieModify.dislike == true) {
+                int index = listBox_dislike.SelectedIndex;
+                listBox_dislike.Items.RemoveAt(index);
+                listBox_dislike.Items.Insert(index, e.movieModify);
             }
         }
     }

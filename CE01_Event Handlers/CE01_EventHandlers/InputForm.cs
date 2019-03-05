@@ -14,8 +14,10 @@ namespace CE01_EventHandlers
     {
 
 
-        public EventHandler<CustomEventArgs> addNewMovie;
+        public EventHandler<CustomEventArgs> AddNewMovie;
+        public EventHandler<CustomEventArgs> UpdateMovie;
 
+        Movie m;
 
         public InputForm() {
             InitializeComponent();
@@ -54,7 +56,7 @@ namespace CE01_EventHandlers
 
         //Save new item to listbox
         private void btn_new_Click(object sender, EventArgs e) {
-            if (addNewMovie != null) {
+            if (AddNewMovie != null) {
                 Movie m = new Movie();
 
                 m.title = txtBox_title.Text;
@@ -62,8 +64,9 @@ namespace CE01_EventHandlers
                 m.genre = txtBox_genre.Text;
                 m.like = rdoBtn_like.Checked;
                 m.dislike = rdoBtn_dislike.Checked;
-                addNewMovie(this, new CustomEventArgs(m));
+                AddNewMovie(this, new CustomEventArgs(m));
             }
+            Close();
         }
 
         //Open Existing Ship
@@ -75,8 +78,19 @@ namespace CE01_EventHandlers
             rdoBtn_dislike.Checked = e.movieModify.dislike;
         }
 
+        //Update Existing Ship
+        private void btn_saveChanges_Click(object sender, EventArgs e) {
+            if (UpdateMovie != null) {
+                Movie m = new Movie();
 
-
-
+                m.title = txtBox_title.Text;
+                m.year = txtBox_year.Text;
+                m.genre = txtBox_genre.Text;
+                m.like = rdoBtn_like.Checked;
+                m.dislike = rdoBtn_dislike.Checked;
+                UpdateMovie(this, new CustomEventArgs(m));
+            }
+            Close();
+        }
     }
 }
