@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 
 namespace CE01_EventHandlers
 {
-    public class CustomEventArgs :EventArgs
+    public class CustomEventArgs : EventArgs
     {
+        private Movie movie;
 
-        public string title;
-        public int indexNum;
-        public Movie movieData;
+        public Movie movieModify {
+            get { return movie; }
+            set { movie = value; }
+        }
 
-        //Custom EventArg
-        public CustomEventArgs(string _title, int _index, object _movieData)  {
-            title = _title;
-            indexNum = _index;
-            movieData = (Movie)_movieData;
+        public CustomEventArgs(Movie m)  {
+            movieModify = m;
         }
 
     }

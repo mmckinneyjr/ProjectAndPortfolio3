@@ -40,10 +40,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btn_new = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.txtBox_genre = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_cancel = new System.Windows.Forms.Button();
+            this.btn_clear = new System.Windows.Forms.Button();
+            this.btn_saveChanges = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtBox_title
@@ -148,21 +149,9 @@
             this.btn_new.Name = "btn_new";
             this.btn_new.Size = new System.Drawing.Size(504, 90);
             this.btn_new.TabIndex = 12;
-            this.btn_new.Text = "Submit";
+            this.btn_new.Text = "Save New";
             this.btn_new.UseVisualStyleBackColor = false;
             this.btn_new.Click += new System.EventHandler(this.btn_new_Click);
-            // 
-            // button5
-            // 
-            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(73)))), ((int)(((byte)(65)))));
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(99, 1022);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(504, 66);
-            this.button5.TabIndex = 13;
-            this.button5.Text = "Clear";
-            this.button5.UseVisualStyleBackColor = false;
             // 
             // label5
             // 
@@ -181,17 +170,41 @@
             this.txtBox_genre.Size = new System.Drawing.Size(482, 31);
             this.txtBox_genre.TabIndex = 16;
             // 
-            // button1
+            // btn_cancel
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(73)))), ((int)(((byte)(65)))));
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(462, 209);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(130, 42);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "Cancel";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btn_cancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(73)))), ((int)(((byte)(65)))));
+            this.btn_cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_cancel.ForeColor = System.Drawing.Color.White;
+            this.btn_cancel.Location = new System.Drawing.Point(462, 209);
+            this.btn_cancel.Name = "btn_cancel";
+            this.btn_cancel.Size = new System.Drawing.Size(130, 42);
+            this.btn_cancel.TabIndex = 17;
+            this.btn_cancel.Text = "Cancel";
+            this.btn_cancel.UseVisualStyleBackColor = false;
+            // 
+            // btn_clear
+            // 
+            this.btn_clear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(73)))), ((int)(((byte)(65)))));
+            this.btn_clear.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_clear.ForeColor = System.Drawing.Color.White;
+            this.btn_clear.Location = new System.Drawing.Point(360, 1023);
+            this.btn_clear.Name = "btn_clear";
+            this.btn_clear.Size = new System.Drawing.Size(243, 66);
+            this.btn_clear.TabIndex = 19;
+            this.btn_clear.Text = "Clear";
+            this.btn_clear.UseVisualStyleBackColor = false;
+            // 
+            // btn_saveChanges
+            // 
+            this.btn_saveChanges.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(99)))), ((int)(((byte)(103)))));
+            this.btn_saveChanges.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_saveChanges.ForeColor = System.Drawing.Color.White;
+            this.btn_saveChanges.Location = new System.Drawing.Point(99, 1023);
+            this.btn_saveChanges.Name = "btn_saveChanges";
+            this.btn_saveChanges.Size = new System.Drawing.Size(243, 66);
+            this.btn_saveChanges.TabIndex = 18;
+            this.btn_saveChanges.Text = "Save Changes";
+            this.btn_saveChanges.UseVisualStyleBackColor = false;
             // 
             // InputForm
             // 
@@ -200,10 +213,11 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(693, 1364);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_clear);
+            this.Controls.Add(this.btn_saveChanges);
+            this.Controls.Add(this.btn_cancel);
             this.Controls.Add(this.txtBox_genre);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.button5);
             this.Controls.Add(this.btn_new);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -233,9 +247,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btn_new;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtBox_genre;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_cancel;
+        private System.Windows.Forms.Button btn_clear;
+        private System.Windows.Forms.Button btn_saveChanges;
     }
 }

@@ -34,17 +34,16 @@
             this.loadListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listView_like = new System.Windows.Forms.ListView();
-            this.listView_dislike = new System.Windows.Forms.ListView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btn_moveL = new System.Windows.Forms.Button();
+            this.btn_moveR = new System.Windows.Forms.Button();
+            this.btn_delete = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btn_new = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.listBox_like = new System.Windows.Forms.ListBox();
+            this.listBox_dislike = new System.Windows.Forms.ListBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -94,63 +93,35 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(207, 38);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
-            // listView_like
+            // btn_moveL
             // 
-            this.listView_like.Location = new System.Drawing.Point(98, 319);
-            this.listView_like.Name = "listView_like";
-            this.listView_like.Size = new System.Drawing.Size(243, 470);
-            this.listView_like.TabIndex = 1;
-            this.listView_like.UseCompatibleStateImageBehavior = false;
+            this.btn_moveL.Location = new System.Drawing.Point(167, 817);
+            this.btn_moveL.Name = "btn_moveL";
+            this.btn_moveL.Size = new System.Drawing.Size(121, 39);
+            this.btn_moveL.TabIndex = 3;
+            this.btn_moveL.Text = "<";
+            this.btn_moveL.UseVisualStyleBackColor = true;
             // 
-            // listView_dislike
+            // btn_moveR
             // 
-            this.listView_dislike.Location = new System.Drawing.Point(359, 319);
-            this.listView_dislike.Name = "listView_dislike";
-            this.listView_dislike.Size = new System.Drawing.Size(243, 470);
-            this.listView_dislike.TabIndex = 2;
-            this.listView_dislike.UseCompatibleStateImageBehavior = false;
+            this.btn_moveR.Location = new System.Drawing.Point(418, 817);
+            this.btn_moveR.Name = "btn_moveR";
+            this.btn_moveR.Size = new System.Drawing.Size(121, 39);
+            this.btn_moveR.TabIndex = 4;
+            this.btn_moveR.Text = ">";
+            this.btn_moveR.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btn_delete
             // 
-            this.button1.Location = new System.Drawing.Point(167, 817);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(121, 39);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "<";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(418, 817);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(121, 39);
-            this.button2.TabIndex = 4;
-            this.button2.Text = ">";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(99)))), ((int)(((byte)(103)))));
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(98, 1023);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(243, 66);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "Edit";
-            this.button4.UseVisualStyleBackColor = false;
-            // 
-            // button5
-            // 
-            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(73)))), ((int)(((byte)(65)))));
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(359, 1023);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(243, 66);
-            this.button5.TabIndex = 7;
-            this.button5.Text = "Delete";
-            this.button5.UseVisualStyleBackColor = false;
+            this.btn_delete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(73)))), ((int)(((byte)(65)))));
+            this.btn_delete.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_delete.ForeColor = System.Drawing.Color.White;
+            this.btn_delete.Location = new System.Drawing.Point(98, 1023);
+            this.btn_delete.Name = "btn_delete";
+            this.btn_delete.Size = new System.Drawing.Size(504, 66);
+            this.btn_delete.TabIndex = 7;
+            this.btn_delete.Text = "Delete";
+            this.btn_delete.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
@@ -193,7 +164,7 @@
             this.btn_new.TabIndex = 11;
             this.btn_new.Text = "New";
             this.btn_new.UseVisualStyleBackColor = false;
-            this.btn_new.Click += new System.EventHandler(this.btn_new_Click_1);
+            this.btn_new.Click += new System.EventHandler(this.btn_new_Click);
             // 
             // pictureBox1
             // 
@@ -207,6 +178,26 @@
             this.pictureBox1.TabIndex = 12;
             this.pictureBox1.TabStop = false;
             // 
+            // listBox_like
+            // 
+            this.listBox_like.FormattingEnabled = true;
+            this.listBox_like.ItemHeight = 25;
+            this.listBox_like.Location = new System.Drawing.Point(98, 319);
+            this.listBox_like.Name = "listBox_like";
+            this.listBox_like.Size = new System.Drawing.Size(243, 479);
+            this.listBox_like.TabIndex = 13;
+            this.listBox_like.DoubleClick += new System.EventHandler(this.listBox_like_DoubleClick);
+            // 
+            // listBox_dislike
+            // 
+            this.listBox_dislike.FormattingEnabled = true;
+            this.listBox_dislike.ItemHeight = 25;
+            this.listBox_dislike.Location = new System.Drawing.Point(359, 319);
+            this.listBox_dislike.Name = "listBox_dislike";
+            this.listBox_dislike.Size = new System.Drawing.Size(243, 479);
+            this.listBox_dislike.TabIndex = 14;
+            this.listBox_dislike.DoubleClick += new System.EventHandler(this.listBox_dislike_DoubleClick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -214,17 +205,16 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(693, 1364);
+            this.Controls.Add(this.listBox_dislike);
+            this.Controls.Add(this.listBox_like);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btn_new);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.listView_dislike);
-            this.Controls.Add(this.listView_like);
+            this.Controls.Add(this.btn_delete);
+            this.Controls.Add(this.btn_moveR);
+            this.Controls.Add(this.btn_moveL);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStrip1;
@@ -245,17 +235,16 @@
         private System.Windows.Forms.ToolStripMenuItem loadListToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveListToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ListView listView_like;
-        private System.Windows.Forms.ListView listView_dislike;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btn_moveL;
+        private System.Windows.Forms.Button btn_moveR;
+        private System.Windows.Forms.Button btn_delete;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btn_new;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ListBox listBox_like;
+        private System.Windows.Forms.ListBox listBox_dislike;
     }
 }
 

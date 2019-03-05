@@ -12,7 +12,11 @@ namespace CE01_EventHandlers
 {
     public partial class Form1 : Form
     {
-        ListViewItem lvi = new ListViewItem();
+
+        public EventHandler<CustomEventArgs> SelectMovie;
+
+        InputForm input;
+        Movie m;
 
 
         public Form1()
@@ -20,10 +24,6 @@ namespace CE01_EventHandlers
             InitializeComponent();
             HandleClientWindowSize();
         }
-
-
-
-
 
 
 
@@ -54,30 +54,48 @@ namespace CE01_EventHandlers
             this.Size = new Size(width, height);
         }
 
-
-        private void btn_new_Click_1(object sender, EventArgs e) {
-
-            InputForm input = new InputForm();
-
-            input.AddMovie += addMovieHandler;
-
+        //Add movie to listBox button
+        private void btn_new_Click(object sender, EventArgs e)
+        {
+            input = new InputForm();
+            input.addNewMovie += AddMovieHandler;
             input.ShowDialog();
-
         }
 
-        public void addMovieHandler(object sender, CustomEventArgs e) {
-            MessageBox.Show("THIS WORKS4");
-            lvi = new ListViewItem();
-            lvi.Text = e.title;
-            lvi.Tag = e.movieData;
+        //Add movie to listBox handler
+        private void AddMovieHandler(object sender, CustomEventArgs e)
+        {
+            if (e.movieModify.like == true)
+            {
+                listBox_like.Items.Add(e.movieModify);
+            }
+            else if (e.movieModify.dislike == true)
+            {
+                listBox_dislike.Items.Add(e.movieModify);
+            }
+        }
 
-            if (e.indexNum == 0) {
-                listView_like.Items.Add(lvi);
+        //Open LIKE listbox item
+        private void listBox_like_DoubleClick(object sender, EventArgs e)  {
+            SelectMovie += input.InsertMovieData;
+            m = new Movie();
+
+            if (SelectMovie != null && listBox_like.Focused == true)  {
+                m = (Movie)listBox_like.SelectedItem;
+                SelectMovie(this, new CustomEventArgs(m));
             }
 
-            else if (e.indexNum == 1) {
-                listView_dislike.Items.Add(lvi);
+            input.ShowDialog();
+        }
 
+        //Open DISLIKE item
+        private void listBox_dislike_DoubleClick(object sender, EventArgs e)  {
+            SelectMovie += input.InsertMovieData;
+            m = new Movie();
+            if (SelectMovie != null && listBox_dislike.Focused == true) {
+                m = (Movie)listBox_dislike.SelectedItem;
+                SelectMovie(this, new CustomEventArgs(m));
+                input.ShowDialog();
             }
         }
     }

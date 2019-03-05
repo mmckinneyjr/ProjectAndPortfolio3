@@ -14,8 +14,8 @@ namespace CE01_EventHandlers
     {
 
 
-        public EventHandler<CustomEventArgs> AddMovie;
-        Movie movie;
+        public EventHandler<CustomEventArgs> addNewMovie;
+
 
         public InputForm() {
             InitializeComponent();
@@ -52,34 +52,31 @@ namespace CE01_EventHandlers
             this.Size = new Size(width, height);
         }
 
+        //Save new item to listbox
         private void btn_new_Click(object sender, EventArgs e) {
+            if (addNewMovie != null) {
+                Movie m = new Movie();
 
-            movie = new Movie();
-            if (AddMovie != null) {
-
-                int checkIndex = 0;
-                    if (rdoBtn_like.Checked)
-                    checkIndex = 0;
-                    else if (rdoBtn_dislike.Checked)
-                    checkIndex = 1;
-
-
-                    movie.title = txtBox_title.Text;
-                    movie.year = txtBox_year.Text;
-                    movie.genre = txtBox_genre.Text;
-                    movie.indexNum = checkIndex;
-
-                    AddMovie(this, new CustomEventArgs(txtBox_title.Text, checkIndex, movie));
-    
-
-                Close();
-                
+                m.title = txtBox_title.Text;
+                m.year = txtBox_year.Text;
+                m.genre = txtBox_genre.Text;
+                m.like = rdoBtn_like.Checked;
+                m.dislike = rdoBtn_dislike.Checked;
+                addNewMovie(this, new CustomEventArgs(m));
             }
         }
 
-        private void label6_Click(object sender, EventArgs e)
-        {
-            Close();
+        //Open Existing Ship
+        public void InsertMovieData(object sender, CustomEventArgs e) {
+            txtBox_title.Text = e.movieModify.title;
+            txtBox_year.Text = e.movieModify.year;
+            txtBox_genre.Text = e.movieModify.genre;
+            rdoBtn_like.Checked = e.movieModify.like;
+            rdoBtn_dislike.Checked = e.movieModify.dislike;
         }
+
+
+
+
     }
 }
