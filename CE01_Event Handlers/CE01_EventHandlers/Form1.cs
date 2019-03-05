@@ -14,12 +14,12 @@ namespace CE01_EventHandlers
     {
 
         public EventHandler<CustomEventArgs> SelectMovie;
+        public EventHandler EditBtnVisiable;
+
 
         InputForm input;
         Movie m;
-        int lbLike;
-        int lbDislike;
-
+ 
         public Form1()
         {
             InitializeComponent();
@@ -69,26 +69,46 @@ namespace CE01_EventHandlers
 
         //Open LIKE listbox item
         private void listBox_like_DoubleClick(object sender, EventArgs e)  {
-            SelectMovie += input.InsertMovieData;
-            m = new Movie();
-            if (SelectMovie != null && listBox_like.Focused == true)  {
-                m = (Movie)listBox_like.SelectedItem;
-                SelectMovie(this, new CustomEventArgs(m));
+            if (listBox_like.SelectedItem != null)
+            {
+                SelectMovie += input.InsertMovieData;
+                m = new Movie();
+                if (SelectMovie != null && listBox_like.Focused == true)
+                {
+                    m = (Movie)listBox_like.SelectedItem;
+                    SelectMovie(this, new CustomEventArgs(m));
+                }
+
+                EditBtnVisiable += input.EditBtnHandler;
+
+                if (EditBtnVisiable != null)
+                {
+                    EditBtnVisiable(this, new EventArgs());
+                }
+                input.ShowDialog();
             }
-            input.ShowDialog();
         }
 
         //Open DISLIKE item
         private void listBox_dislike_DoubleClick(object sender, EventArgs e)  {
-            SelectMovie += input.InsertMovieData;
-            m = new Movie();
-            if (SelectMovie != null && listBox_dislike.Focused == true) {
-                m = (Movie)listBox_dislike.SelectedItem;
-                SelectMovie(this, new CustomEventArgs(m));
-            }
-            input.ShowDialog();
-        }
+            if (listBox_dislike.SelectedItem != null)
+            {
+                SelectMovie += input.InsertMovieData;
+                m = new Movie();
+                if (SelectMovie != null && listBox_dislike.Focused == true)
+                {
+                    m = (Movie)listBox_dislike.SelectedItem;
+                    SelectMovie(this, new CustomEventArgs(m));
+                }
+                EditBtnVisiable += input.EditBtnHandler;
 
+                if (EditBtnVisiable != null)
+                {
+                    EditBtnVisiable(this, new EventArgs());
+                }
+                input.ShowDialog();
+            }
+        }
 
         //Update ListView
         private void MovieDataUpdate(object sender, CustomEventArgs e)  {
@@ -102,6 +122,25 @@ namespace CE01_EventHandlers
                 listBox_dislike.Items.RemoveAt(index);
                 listBox_dislike.Items.Insert(index, e.movieModify);
             }
+        }
+
+        //Delete item
+        private void btn_delete_Click(object sender, EventArgs e) {
+            if (listBox_like.SelectedItem != null)  {
+                listBox_like.Items.Remove(listBox_like.SelectedItem);
+            }
+            else if (listBox_dislike.SelectedItem != null) {
+                listBox_dislike.Items.Remove(listBox_dislike.SelectedItem);
+            }
+        }
+
+        //only allows one listbox to be selected
+        private void listBox_dislike_Click(object sender, EventArgs e)  {
+            listBox_like.SelectedItem = null;
+        }
+        //only allows one listbox to be selected
+        private void listBox_like_Click(object sender, EventArgs e)  {
+            listBox_dislike.SelectedItem = null;
         }
     }
 }

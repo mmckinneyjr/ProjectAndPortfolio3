@@ -122,6 +122,7 @@
             this.btn_delete.TabIndex = 7;
             this.btn_delete.Text = "Delete";
             this.btn_delete.UseVisualStyleBackColor = false;
+            this.btn_delete.Click += new System.EventHandler(this.btn_delete_Click);
             // 
             // label1
             // 
@@ -186,6 +187,7 @@
             this.listBox_like.Name = "listBox_like";
             this.listBox_like.Size = new System.Drawing.Size(243, 479);
             this.listBox_like.TabIndex = 13;
+            this.listBox_like.Click += new System.EventHandler(this.listBox_like_Click);
             this.listBox_like.DoubleClick += new System.EventHandler(this.listBox_like_DoubleClick);
             // 
             // listBox_dislike
@@ -196,6 +198,7 @@
             this.listBox_dislike.Name = "listBox_dislike";
             this.listBox_dislike.Size = new System.Drawing.Size(243, 479);
             this.listBox_dislike.TabIndex = 14;
+            this.listBox_dislike.Click += new System.EventHandler(this.listBox_dislike_Click);
             this.listBox_dislike.DoubleClick += new System.EventHandler(this.listBox_dislike_DoubleClick);
             // 
             // Form1

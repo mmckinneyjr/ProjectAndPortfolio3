@@ -181,18 +181,20 @@
             this.btn_cancel.TabIndex = 17;
             this.btn_cancel.Text = "Cancel";
             this.btn_cancel.UseVisualStyleBackColor = false;
+            this.btn_cancel.Click += new System.EventHandler(this.btn_cancel_Click);
             // 
             // btn_clear
             // 
             this.btn_clear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(73)))), ((int)(((byte)(65)))));
             this.btn_clear.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_clear.ForeColor = System.Drawing.Color.White;
-            this.btn_clear.Location = new System.Drawing.Point(360, 1023);
+            this.btn_clear.Location = new System.Drawing.Point(99, 1023);
             this.btn_clear.Name = "btn_clear";
-            this.btn_clear.Size = new System.Drawing.Size(243, 66);
+            this.btn_clear.Size = new System.Drawing.Size(504, 66);
             this.btn_clear.TabIndex = 19;
             this.btn_clear.Text = "Clear";
             this.btn_clear.UseVisualStyleBackColor = false;
+            this.btn_clear.Click += new System.EventHandler(this.btn_clear_Click);
             // 
             // btn_saveChanges
             // 
@@ -205,6 +207,7 @@
             this.btn_saveChanges.TabIndex = 18;
             this.btn_saveChanges.Text = "Save Changes";
             this.btn_saveChanges.UseVisualStyleBackColor = false;
+            this.btn_saveChanges.Visible = false;
             this.btn_saveChanges.Click += new System.EventHandler(this.btn_saveChanges_Click);
             // 
             // InputForm

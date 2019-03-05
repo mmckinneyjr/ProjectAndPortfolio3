@@ -69,7 +69,7 @@ namespace CE01_EventHandlers
             Close();
         }
 
-        //Open Existing Ship
+        //Open Existing Movie
         public void InsertMovieData(object sender, CustomEventArgs e) {
             txtBox_title.Text = e.movieModify.title;
             txtBox_year.Text = e.movieModify.year;
@@ -78,7 +78,7 @@ namespace CE01_EventHandlers
             rdoBtn_dislike.Checked = e.movieModify.dislike;
         }
 
-        //Update Existing Ship
+        //Update Existing Movie
         private void btn_saveChanges_Click(object sender, EventArgs e) {
             if (UpdateMovie != null) {
                 Movie m = new Movie();
@@ -90,6 +90,28 @@ namespace CE01_EventHandlers
                 m.dislike = rdoBtn_dislike.Checked;
                 UpdateMovie(this, new CustomEventArgs(m));
             }
+            Close();
+        }
+
+        //Clear Form
+        private void btn_clear_Click(object sender, EventArgs e) {
+            txtBox_title.Text = "";
+            txtBox_year.Text = "";
+            txtBox_genre.Text = "";
+            rdoBtn_like.Checked = true;
+            rdoBtn_dislike.Checked = false;
+        }
+
+        //edit item buttons
+        public void EditBtnHandler(object sender, EventArgs e) {
+            btn_saveChanges.Visible = true;
+            btn_clear.Size = new Size(123, 35);
+            btn_clear.Location = new Point(178,532);
+            btn_clear.Visible = true;
+        }
+
+        //Cancel form
+        private void btn_cancel_Click(object sender, EventArgs e)  {
             Close();
         }
     }
