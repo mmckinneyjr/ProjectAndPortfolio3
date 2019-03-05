@@ -142,5 +142,40 @@ namespace CE01_EventHandlers
         private void listBox_like_Click(object sender, EventArgs e)  {
             listBox_dislike.SelectedItem = null;
         }
+
+
+        //Move items left
+        private void btn_moveL_Click(object sender, EventArgs e) {
+            if (listBox_dislike.SelectedItem != null)
+            {
+                m = new Movie();
+                m.like = ((Movie)listBox_dislike.SelectedItem).like = true;
+                m.dislike = ((Movie)listBox_dislike.SelectedItem).dislike = false;
+                listBox_like.Items.Add(listBox_dislike.SelectedItem);
+                listBox_dislike.Items.Remove(listBox_dislike.SelectedItem);
+
+                if (listBox_dislike.Items.Count > 0)
+                {
+                    listBox_dislike.SelectedIndex = 0;
+                }
+            }
+        }
+
+        //Movie items Right
+        private void btn_moveR_Click(object sender, EventArgs e)  {
+            if (listBox_like.SelectedItem != null)
+            {
+                m = new Movie();
+                m.dislike = ((Movie)listBox_like.SelectedItem).dislike = true;
+                m.like = ((Movie)listBox_like.SelectedItem).like = false;
+                listBox_dislike.Items.Add(listBox_like.SelectedItem);
+                listBox_like.Items.Remove(listBox_like.SelectedItem);
+
+                if (listBox_like.Items.Count > 0)
+                {
+                    listBox_like.SelectedIndex = 0;
+                }
+            }
+        }
     }
 }

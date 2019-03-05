@@ -79,7 +79,7 @@
             this.txtBox_year.Location = new System.Drawing.Point(110, 445);
             this.txtBox_year.Name = "txtBox_year";
             this.txtBox_year.Size = new System.Drawing.Size(482, 31);
-            this.txtBox_year.TabIndex = 2;
+            this.txtBox_year.TabIndex = 1;
             // 
             // rdoBtn_like
             // 
@@ -93,7 +93,7 @@
             this.rdoBtn_like.Name = "rdoBtn_like";
             this.rdoBtn_like.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
             this.rdoBtn_like.Size = new System.Drawing.Size(133, 163);
-            this.rdoBtn_like.TabIndex = 4;
+            this.rdoBtn_like.TabIndex = 3;
             this.rdoBtn_like.TabStop = true;
             this.rdoBtn_like.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.rdoBtn_like.UseVisualStyleBackColor = false;
@@ -116,7 +116,7 @@
             this.rdoBtn_dislike.Name = "rdoBtn_dislike";
             this.rdoBtn_dislike.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
             this.rdoBtn_dislike.Size = new System.Drawing.Size(133, 163);
-            this.rdoBtn_dislike.TabIndex = 6;
+            this.rdoBtn_dislike.TabIndex = 4;
             this.rdoBtn_dislike.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.rdoBtn_dislike.UseVisualStyleBackColor = false;
             // 
@@ -148,7 +148,7 @@
             this.btn_new.Location = new System.Drawing.Point(99, 912);
             this.btn_new.Name = "btn_new";
             this.btn_new.Size = new System.Drawing.Size(504, 90);
-            this.btn_new.TabIndex = 12;
+            this.btn_new.TabIndex = 5;
             this.btn_new.Text = "Save New";
             this.btn_new.UseVisualStyleBackColor = false;
             this.btn_new.Click += new System.EventHandler(this.btn_new_Click);
@@ -168,7 +168,7 @@
             this.txtBox_genre.Location = new System.Drawing.Point(110, 531);
             this.txtBox_genre.Name = "txtBox_genre";
             this.txtBox_genre.Size = new System.Drawing.Size(482, 31);
-            this.txtBox_genre.TabIndex = 16;
+            this.txtBox_genre.TabIndex = 2;
             // 
             // btn_cancel
             // 
@@ -178,7 +178,7 @@
             this.btn_cancel.Location = new System.Drawing.Point(462, 209);
             this.btn_cancel.Name = "btn_cancel";
             this.btn_cancel.Size = new System.Drawing.Size(130, 42);
-            this.btn_cancel.TabIndex = 17;
+            this.btn_cancel.TabIndex = 8;
             this.btn_cancel.Text = "Cancel";
             this.btn_cancel.UseVisualStyleBackColor = false;
             this.btn_cancel.Click += new System.EventHandler(this.btn_cancel_Click);
@@ -191,7 +191,7 @@
             this.btn_clear.Location = new System.Drawing.Point(99, 1023);
             this.btn_clear.Name = "btn_clear";
             this.btn_clear.Size = new System.Drawing.Size(504, 66);
-            this.btn_clear.TabIndex = 19;
+            this.btn_clear.TabIndex = 7;
             this.btn_clear.Text = "Clear";
             this.btn_clear.UseVisualStyleBackColor = false;
             this.btn_clear.Click += new System.EventHandler(this.btn_clear_Click);
@@ -204,7 +204,7 @@
             this.btn_saveChanges.Location = new System.Drawing.Point(99, 1023);
             this.btn_saveChanges.Name = "btn_saveChanges";
             this.btn_saveChanges.Size = new System.Drawing.Size(243, 66);
-            this.btn_saveChanges.TabIndex = 18;
+            this.btn_saveChanges.TabIndex = 6;
             this.btn_saveChanges.Text = "Save Changes";
             this.btn_saveChanges.UseVisualStyleBackColor = false;
             this.btn_saveChanges.Visible = false;
