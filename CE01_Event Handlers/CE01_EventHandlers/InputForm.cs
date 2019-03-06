@@ -25,16 +25,6 @@ namespace CE01_EventHandlers
         }
 
 
-
-
-
-
-
-
-
-
-
-
         //Written by Keith Webster. Used with permission. Not to be distributed.
         //Place this inside the class space in the form you would like to size.
         //Call this method AFTER InitializeComponent() inside the form's constructor.
@@ -114,5 +104,7 @@ namespace CE01_EventHandlers
         private void btn_cancel_Click(object sender, EventArgs e)  {
             Close();
         }
+
+
     }
 }

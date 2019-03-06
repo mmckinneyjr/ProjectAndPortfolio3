@@ -57,7 +57,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(75, 194);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(38, 34);
+            this.menuStrip1.Size = new System.Drawing.Size(278, 42);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -78,20 +78,26 @@
             // loadListToolStripMenuItem
             // 
             this.loadListToolStripMenuItem.Name = "loadListToolStripMenuItem";
-            this.loadListToolStripMenuItem.Size = new System.Drawing.Size(207, 38);
+            this.loadListToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+            this.loadListToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
             this.loadListToolStripMenuItem.Text = "Load List";
+            this.loadListToolStripMenuItem.Click += new System.EventHandler(this.loadListToolStripMenuItem_Click);
             // 
             // saveListToolStripMenuItem
             // 
             this.saveListToolStripMenuItem.Name = "saveListToolStripMenuItem";
-            this.saveListToolStripMenuItem.Size = new System.Drawing.Size(207, 38);
+            this.saveListToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveListToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
             this.saveListToolStripMenuItem.Text = "Save List";
+            this.saveListToolStripMenuItem.Click += new System.EventHandler(this.saveListToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(207, 38);
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // btn_moveL
             // 
