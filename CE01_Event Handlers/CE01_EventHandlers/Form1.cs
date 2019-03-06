@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.IO;
 
 namespace CE01_EventHandlers
 {
@@ -18,13 +19,13 @@ namespace CE01_EventHandlers
         public EventHandler EditBtnVisiable;
         InputForm input;
         Movie m;
- 
+
         public Form1()
         {
             InitializeComponent();
             HandleClientWindowSize();
         }
-        
+
         //Written by Keith Webster. Used with permission. Not to be distributed.
         //Place this inside the class space in the form you would like to size.
         //Call this method AFTER InitializeComponent() inside the form's constructor.
@@ -46,31 +47,32 @@ namespace CE01_EventHandlers
         }
 
         //Add movie to listBox button
-        private void btn_new_Click(object sender, EventArgs e)  {
+        private void btn_new_Click(object sender, EventArgs e) {
             input = new InputForm();
             input.AddNewMovie += AddMovieHandler;
             input.ShowDialog();
         }
 
         //Add movie to listBox handler
-        private void AddMovieHandler(object sender, CustomEventArgs e)  {
-            if (e.movieModify.like == true)  {
+        private void AddMovieHandler(object sender, CustomEventArgs e) {
+            if (e.movieModify.like == true) {
                 listBox_like.Items.Add(e.movieModify);
             }
             else if (e.movieModify.dislike == true) {
                 listBox_dislike.Items.Add(e.movieModify);
             }
             input.UpdateMovie += MovieDataUpdate;
+            SelectMovie += input.InsertMovieData;
+
         }
 
         //Open LIKE listbox item
-        private void listBox_like_DoubleClick(object sender, EventArgs e)  {
-            if (listBox_like.SelectedItem != null)
-            {
-                SelectMovie += input.InsertMovieData;
+        private void listBox_like_DoubleClick(object sender, EventArgs e) {
+             
+            if (listBox_like.SelectedItem != null)  {
                 m = new Movie();
-                if (SelectMovie != null && listBox_like.Focused == true)
-                {
+
+                if (SelectMovie != null && listBox_like.Focused == true) {
                     m = (Movie)listBox_like.SelectedItem;
                     SelectMovie(this, new CustomEventArgs(m));
                 }
@@ -81,15 +83,15 @@ namespace CE01_EventHandlers
                 {
                     EditBtnVisiable(this, new EventArgs());
                 }
+
                 input.ShowDialog();
             }
         }
 
         //Open DISLIKE item
-        private void listBox_dislike_DoubleClick(object sender, EventArgs e)  {
+        private void listBox_dislike_DoubleClick(object sender, EventArgs e) {
             if (listBox_dislike.SelectedItem != null)
             {
-                SelectMovie += input.InsertMovieData;
                 m = new Movie();
                 if (SelectMovie != null && listBox_dislike.Focused == true)
                 {
@@ -98,8 +100,7 @@ namespace CE01_EventHandlers
                 }
                 EditBtnVisiable += input.EditBtnHandler;
 
-                if (EditBtnVisiable != null)
-                {
+                if (EditBtnVisiable != null) {
                     EditBtnVisiable(this, new EventArgs());
                 }
                 input.ShowDialog();
@@ -107,22 +108,20 @@ namespace CE01_EventHandlers
         }
 
         //Update ListView
-        private void MovieDataUpdate(object sender, CustomEventArgs e)  {
-            if (e.movieModify.like == true) {
+        private void MovieDataUpdate(object sender, CustomEventArgs e) {
                 int index = listBox_like.SelectedIndex;
-                listBox_like.Items.RemoveAt(index);
-                listBox_like.Items.Insert(index, e.movieModify);
-            }
-            if (e.movieModify.dislike == true) {
-                int index = listBox_dislike.SelectedIndex;
-                listBox_dislike.Items.RemoveAt(index);
-                listBox_dislike.Items.Insert(index, e.movieModify);
-            }
+                listBox_like.Items.Remove(listBox_like.SelectedItem);
+                listBox_dislike.Items.Remove(listBox_dislike.SelectedItem);
+
+
+            if (e.movieModify.dislike == true) { listBox_dislike.Items.Add(e.movieModify); }
+                else if (e.movieModify.like == true) { listBox_like.Items.Add(e.movieModify); }
+
         }
 
         //Delete item
         private void btn_delete_Click(object sender, EventArgs e) {
-            if (listBox_like.SelectedItem != null)  {
+            if (listBox_like.SelectedItem != null) {
                 listBox_like.Items.Remove(listBox_like.SelectedItem);
                 if (listBox_like.Items.Count > 0)
                 { listBox_like.SelectedIndex = 0; }
@@ -139,11 +138,11 @@ namespace CE01_EventHandlers
         }
 
         //only allows one listbox to be selected
-        private void listBox_dislike_Click(object sender, EventArgs e)  {
+        private void listBox_dislike_Click(object sender, EventArgs e) {
             listBox_like.SelectedItem = null;
         }
         //only allows one listbox to be selected
-        private void listBox_like_Click(object sender, EventArgs e)  {
+        private void listBox_like_Click(object sender, EventArgs e) {
             listBox_dislike.SelectedItem = null;
         }
 
@@ -165,7 +164,7 @@ namespace CE01_EventHandlers
         }
 
         //Movie items Right
-        private void btn_moveR_Click(object sender, EventArgs e)  {
+        private void btn_moveR_Click(object sender, EventArgs e) {
             if (listBox_like.SelectedItem != null)
             {
                 m = new Movie();
@@ -182,7 +181,7 @@ namespace CE01_EventHandlers
         }
 
         //Exit Application
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)  {
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
             Application.Exit();
         }
 
@@ -190,17 +189,17 @@ namespace CE01_EventHandlers
         private void saveListToolStripMenuItem_Click(object sender, EventArgs e) {
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.Filter = "xml files (*.xml)|*.xml";
-            if (dlg.ShowDialog() == DialogResult.OK)  {
+            if (dlg.ShowDialog() == DialogResult.OK) {
 
                 XmlWriterSettings settings = new XmlWriterSettings();
                 settings.ConformanceLevel = ConformanceLevel.Document;
                 settings.Indent = true;
                 settings.CloseOutput = true;
 
-                using (XmlWriter writer = XmlWriter.Create(dlg.OpenFile(), settings))  {
+                using (XmlWriter writer = XmlWriter.Create(dlg.OpenFile(), settings)) {
                     writer.WriteStartElement("MovieData-2KJ34KJHKJ234JKH23J4HKJ23K");
 
-                    foreach (Movie item in listBox_like.Items)  {
+                    foreach (Movie item in listBox_like.Items) {
 
                         writer.WriteStartElement("item");
 
@@ -212,7 +211,7 @@ namespace CE01_EventHandlers
 
                         writer.WriteEndElement();
                     }
-                    foreach (Movie item in listBox_dislike.Items)  {
+                    foreach (Movie item in listBox_dislike.Items) {
 
                         writer.WriteStartElement("item");
 
@@ -229,7 +228,12 @@ namespace CE01_EventHandlers
             }
         }
 
+        //Load XML data
         private void loadListToolStripMenuItem_Click(object sender, EventArgs e) {
+            input = new InputForm();
+            SelectMovie += input.InsertMovieData;
+            input.UpdateMovie += MovieDataUpdate;
+
 
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "xml files (*.xml)|*.xml";
@@ -241,42 +245,86 @@ namespace CE01_EventHandlers
 
                 using (XmlReader reader = XmlReader.Create(dlg.OpenFile(), settings))
                 {
-                    while (reader.Read())  {
+                    while (reader.Read()) {
 
-                        XmlDocument xml = new XmlDocument();
-                        xml.Load(reader);
-                        XmlNodeList nodeList;
-                        XmlNode root = xml.DocumentElement;
+                        try
+                        {
+                            XmlDocument xml = new XmlDocument();
+                            xml.Load(reader);
+                            XmlNodeList nodeList;
+                            XmlNode root = xml.DocumentElement;
 
-                        if (root.Name != "MovieData-2KJ34KJHKJ234JKH23J4HKJ23K") {
+                            if (root.Name != "MovieData-2KJ34KJHKJ234JKH23J4HKJ23K") {
+                                return;
+                            }
+
+
+
+                            nodeList = root.SelectNodes("item");
+                            for (int i = 0; i < nodeList.Count; i++) {
+                                Movie movie = new Movie();
+
+                                movie.title = nodeList[i].SelectSingleNode("title").InnerText;
+                                movie.year = nodeList[i].SelectSingleNode("year").InnerText;
+                                movie.genre = nodeList[i].SelectSingleNode("genre").InnerText;
+                                movie.like = bool.Parse(nodeList[i].SelectSingleNode("like").InnerText);
+                                movie.dislike = bool.Parse(nodeList[i].SelectSingleNode("dislike").InnerText);
+
+                                if (movie.like == true)
+                                {
+                                    listBox_like.Items.Add(movie);
+                                }
+
+                                else if (movie.dislike == true) {
+                                    listBox_dislike.Items.Add(movie);
+                                }
+                            }
+                        }
+                        catch
+                        {
                             MessageBox.Show("Your file is not supported by this application");
-                            return;
                         }
-
-                        nodeList = root.SelectNodes("item");
-                        for (int i = 0; i < nodeList.Count; i++)  {
-                            Movie movie = new Movie();
-
-                            movie.title = nodeList[i].SelectSingleNode("title").InnerText;
-                            movie.year = nodeList[i].SelectSingleNode("year").InnerText;
-                            movie.genre = nodeList[i].SelectSingleNode("genre").InnerText;
-                            movie.like = bool.Parse(nodeList[i].SelectSingleNode("like").InnerText);
-                            movie.dislike = bool.Parse(nodeList[i].SelectSingleNode("dislike").InnerText);
-
-                            if (movie.like == true)
-                            {
-                                listBox_like.Items.Add(movie);
-                            }
-
-                            else if (movie.dislike == true) {
-                                listBox_dislike.Items.Add(movie);
-                            }
-                        }
-
 
                     }
                 }
+
+
+            }
+
+
+
+        }
+
+        //Save for Print
+        private void saveToPrintToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.FileName = "MovieList.txt";
+            saveFile.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            if (saveFile.ShowDialog() == DialogResult.OK)  {
+                using (StreamWriter str = new StreamWriter(saveFile.OpenFile())) {
+
+                    str.WriteLine("                          MY MOVIE LIST");
+                    str.WriteLine($"                      {DateTime.Now.ToString()}\r\n");
+                    str.WriteLine("========================= LIKED MOVIES ========================");
+                    foreach (Movie item in listBox_like.Items) {
+                        str.WriteLine(item.SaveOutput());
+                        str.WriteLine("---------------------------------------------------------------");
+                    }
+                    str.WriteLine("\r\n======================== DISLIKED MOVIES =======================");
+
+                    foreach (Movie item in listBox_dislike.Items)  {
+                        str.WriteLine(item.SaveOutput());
+                        str.WriteLine("---------------------------------------------------------------");
+
+                    }
+                    str.WriteLine("\r\n                           END OF LIST");
+                }
             }
         }
+
+       
+
+        
     }
 }

@@ -9,3 +9,14 @@
 \\vmware-host\Shared Folders\Mobile Development\13 Project and Portfolio III\01 Week\CE01_EventHandlers\CE01_EventHandlers\obj\Debug\CE01_EventHandlers.exe
 \\vmware-host\Shared Folders\Mobile Development\13 Project and Portfolio III\01 Week\CE01_EventHandlers\CE01_EventHandlers\obj\Debug\CE01_EventHandlers.pdb
 \\vmware-host\Shared Folders\Mobile Development\13 Project and Portfolio III\01 Week\CE01_EventHandlers\CE01_EventHandlers\obj\Debug\CE01_EventHandlers.InputForm.resources
+\\vmware-host\Shared Folders\mark\Documents\Repo\ProjectAndPortfolio3\CE01_Event Handlers\CE01_EventHandlers\obj\Debug\CE01_EventHandlers.csprojAssemblyReference.cache
+\\vmware-host\Shared Folders\mark\Documents\Repo\ProjectAndPortfolio3\CE01_Event Handlers\CE01_EventHandlers\obj\Debug\CE01_EventHandlers.Form1.resources
+\\vmware-host\Shared Folders\mark\Documents\Repo\ProjectAndPortfolio3\CE01_Event Handlers\CE01_EventHandlers\obj\Debug\CE01_EventHandlers.InputForm.resources
+\\vmware-host\Shared Folders\mark\Documents\Repo\ProjectAndPortfolio3\CE01_Event Handlers\CE01_EventHandlers\obj\Debug\CE01_EventHandlers.Properties.Resources.resources
+\\vmware-host\Shared Folders\mark\Documents\Repo\ProjectAndPortfolio3\CE01_Event Handlers\CE01_EventHandlers\obj\Debug\CE01_EventHandlers.csproj.GenerateResource.cache
+\\vmware-host\Shared Folders\mark\Documents\Repo\ProjectAndPortfolio3\CE01_Event Handlers\CE01_EventHandlers\obj\Debug\CE01_EventHandlers.csproj.CoreCompileInputs.cache
+\\vmware-host\Shared Folders\mark\Documents\Repo\ProjectAndPortfolio3\CE01_Event Handlers\CE01_EventHandlers\obj\Debug\CE01_EventHandlers.exe
+\\vmware-host\Shared Folders\mark\Documents\Repo\ProjectAndPortfolio3\CE01_Event Handlers\CE01_EventHandlers\obj\Debug\CE01_EventHandlers.pdb
+\\vmware-host\Shared Folders\mark\Documents\Repo\ProjectAndPortfolio3\CE01_Event Handlers\CE01_EventHandlers\bin\Debug\CE01_EventHandlers.exe.config
+\\vmware-host\Shared Folders\mark\Documents\Repo\ProjectAndPortfolio3\CE01_Event Handlers\CE01_EventHandlers\bin\Debug\CE01_EventHandlers.exe
+\\vmware-host\Shared Folders\mark\Documents\Repo\ProjectAndPortfolio3\CE01_Event Handlers\CE01_EventHandlers\bin\Debug\CE01_EventHandlers.pdb

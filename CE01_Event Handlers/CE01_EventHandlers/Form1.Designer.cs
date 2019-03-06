@@ -44,6 +44,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.listBox_like = new System.Windows.Forms.ListBox();
             this.listBox_dislike = new System.Windows.Forms.ListBox();
+            this.saveToPrintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -69,6 +71,8 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadListToolStripMenuItem,
             this.saveListToolStripMenuItem,
+            this.saveToPrintToolStripMenuItem,
+            this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("fileToolStripMenuItem.Image")));
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -79,7 +83,7 @@
             // 
             this.loadListToolStripMenuItem.Name = "loadListToolStripMenuItem";
             this.loadListToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.loadListToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.loadListToolStripMenuItem.Size = new System.Drawing.Size(330, 38);
             this.loadListToolStripMenuItem.Text = "Load List";
             this.loadListToolStripMenuItem.Click += new System.EventHandler(this.loadListToolStripMenuItem_Click);
             // 
@@ -87,7 +91,7 @@
             // 
             this.saveListToolStripMenuItem.Name = "saveListToolStripMenuItem";
             this.saveListToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveListToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.saveListToolStripMenuItem.Size = new System.Drawing.Size(330, 38);
             this.saveListToolStripMenuItem.Text = "Save List";
             this.saveListToolStripMenuItem.Click += new System.EventHandler(this.saveListToolStripMenuItem_Click);
             // 
@@ -95,7 +99,7 @@
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(330, 38);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -209,6 +213,19 @@
             this.listBox_dislike.Click += new System.EventHandler(this.listBox_dislike_Click);
             this.listBox_dislike.DoubleClick += new System.EventHandler(this.listBox_dislike_DoubleClick);
             // 
+            // saveToPrintToolStripMenuItem
+            // 
+            this.saveToPrintToolStripMenuItem.Name = "saveToPrintToolStripMenuItem";
+            this.saveToPrintToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.saveToPrintToolStripMenuItem.Size = new System.Drawing.Size(330, 38);
+            this.saveToPrintToolStripMenuItem.Text = "Save to Print";
+            this.saveToPrintToolStripMenuItem.Click += new System.EventHandler(this.saveToPrintToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(327, 6);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -256,6 +273,8 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListBox listBox_like;
         private System.Windows.Forms.ListBox listBox_dislike;
+        private System.Windows.Forms.ToolStripMenuItem saveToPrintToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 

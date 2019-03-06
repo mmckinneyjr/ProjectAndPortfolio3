@@ -18,6 +18,10 @@ namespace CE01_EventHandlers
         public override string ToString() {
             return title;
         }
+
+        public string SaveOutput() {
+            return $"Title: {title}\r\nYear: {year}\r\nGenre: {genre}";
+        }
     }
 
     
