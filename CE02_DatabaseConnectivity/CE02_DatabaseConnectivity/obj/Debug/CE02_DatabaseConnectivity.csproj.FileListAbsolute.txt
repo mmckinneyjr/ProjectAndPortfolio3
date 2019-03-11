@@ -1,0 +1,21 @@
+Z:\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\bin\Debug\CE02_DatabaseConnectivity.exe.config
+Z:\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\bin\Debug\CE02_DatabaseConnectivity.exe
+Z:\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\bin\Debug\CE02_DatabaseConnectivity.pdb
+Z:\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\obj\Debug\CE02_DatabaseConnectivity.csprojAssemblyReference.cache
+Z:\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\obj\Debug\CE02_DatabaseConnectivity.Form1.resources
+Z:\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\obj\Debug\CE02_DatabaseConnectivity.Properties.Resources.resources
+Z:\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\obj\Debug\CE02_DatabaseConnectivity.csproj.GenerateResource.cache
+Z:\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\obj\Debug\CE02_DatabaseConnectivity.csproj.CoreCompileInputs.cache
+Z:\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\obj\Debug\CE02_DatabaseConnectivity.exe
+Z:\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\obj\Debug\CE02_DatabaseConnectivity.pdb
+\\vmware-host\Shared Folders\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\bin\Debug\CE02_DatabaseConnectivity.exe.config
+\\vmware-host\Shared Folders\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\bin\Debug\CE02_DatabaseConnectivity.exe
+\\vmware-host\Shared Folders\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\bin\Debug\CE02_DatabaseConnectivity.pdb
+\\vmware-host\Shared Folders\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\obj\Debug\CE02_DatabaseConnectivity.csprojAssemblyReference.cache
+\\vmware-host\Shared Folders\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\obj\Debug\CE02_DatabaseConnectivity.ContactForm.resources
+\\vmware-host\Shared Folders\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\obj\Debug\CE02_DatabaseConnectivity.Form1.resources
+\\vmware-host\Shared Folders\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\obj\Debug\CE02_DatabaseConnectivity.Properties.Resources.resources
+\\vmware-host\Shared Folders\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\obj\Debug\CE02_DatabaseConnectivity.csproj.GenerateResource.cache
+\\vmware-host\Shared Folders\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\obj\Debug\CE02_DatabaseConnectivity.csproj.CoreCompileInputs.cache
+\\vmware-host\Shared Folders\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\obj\Debug\CE02_DatabaseConnectivity.exe
+\\vmware-host\Shared Folders\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\obj\Debug\CE02_DatabaseConnectivity.pdb
