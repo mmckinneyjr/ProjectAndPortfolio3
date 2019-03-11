@@ -19,3 +19,5 @@ Z:\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnecti
 \\vmware-host\Shared Folders\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\obj\Debug\CE02_DatabaseConnectivity.csproj.CoreCompileInputs.cache
 \\vmware-host\Shared Folders\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\obj\Debug\CE02_DatabaseConnectivity.exe
 \\vmware-host\Shared Folders\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\obj\Debug\CE02_DatabaseConnectivity.pdb
+\\vmware-host\Shared Folders\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\bin\Debug\MySql.Data.dll
+\\vmware-host\Shared Folders\Mobile Development\13 Project and Portfolio III\02 Week\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\CE02_DatabaseConnectivity\obj\Debug\CE02_DatabaseConnectivity.csproj.CopyComplete

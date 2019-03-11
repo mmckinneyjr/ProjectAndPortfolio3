@@ -24,6 +24,8 @@ namespace CE02_DatabaseConnectivity
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public string EmailAddress { get => emailAddress; set => emailAddress = value; }
         public string Relationship { get => relationship; set => relationship = value; }
+        public int RelationshipIndex { get => relationshipIndex; set => relationshipIndex = value; }
+
 
         public override string ToString()  {
             return $"{firstName} {lastName}";
