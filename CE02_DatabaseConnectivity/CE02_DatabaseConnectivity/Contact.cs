@@ -30,5 +30,9 @@ namespace CE02_DatabaseConnectivity
         public override string ToString()  {
             return $"{firstName} {lastName}";
         }
+
+        public string SaveOutput() {
+            return $"First Name: {firstName}\r\nLast Name: {lastName}\r\nPhone Number: {phoneNumber}\r\nEmail: {emailAddress}\r\nRelationship: {relationship}";
+        }
     }
 }
