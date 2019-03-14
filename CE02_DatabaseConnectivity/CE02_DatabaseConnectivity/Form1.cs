@@ -20,7 +20,6 @@ namespace CE02_DatabaseConnectivity
         int contactCount = 0;
         int currentRow = 0;
         
-
         MySqlConnection conn = new MySqlConnection();
         DataTable contactsDataTable = new DataTable();
         string connectionString = Connection.BuildConnectionString();
@@ -28,9 +27,7 @@ namespace CE02_DatabaseConnectivity
         public Form1()  {
             InitializeComponent();
             HandleClientWindowSize();
-
             conn = Connection.Connect(connectionString);
-
             RetrieveData(); 
         }
 
@@ -64,7 +61,6 @@ namespace CE02_DatabaseConnectivity
                 contact.EmailAddress = contactsDataTable.Rows[i]["Email"].ToString();
                 contact.Relationship = contactsDataTable.Rows[i]["Relation"].ToString();
 
-
                 switch (contact.Relationship) {
                     case "Family": { contact.RelationshipIndex = 0; } break;
                     case "Friend": { contact.RelationshipIndex = 1; } break;
@@ -73,17 +69,13 @@ namespace CE02_DatabaseConnectivity
                 }
 
                 lvi.ImageIndex = contact.RelationshipIndex;
-
                 lvi.Tag = contact;
-
                 listView1.Items.Add(lvi);
-
 
                 listView1.Focus();
                 listView1.Select();
                 listView1.Items[0].Focused = true;
                 listView1.Items[0].Selected = true;
-
             }
 
             contactCount = contactsDataTable.Select().Length;
@@ -106,12 +98,10 @@ namespace CE02_DatabaseConnectivity
                 cmboBox_relation.Text = contactsDataTable.Rows[currentRow]["Relation"].ToString();
             }
 
-
             listView1.Focus();
             listView1.Select();
-            listView1.Items[0].Focused = true;
-            listView1.Items[0].Selected = true;
-
+            listView1.Items[currentRow].Focused = true;
+            listView1.Items[currentRow].Selected = true;
         }
 
         //Written by Keith Webster.  Used with permission.  Not to be distributed.  
@@ -169,8 +159,6 @@ namespace CE02_DatabaseConnectivity
             button4.FlatAppearance.BorderSize = 0;
             button4.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button4.FlatAppearance.MouseDownBackColor = Color.Transparent;
-
-
         }
 
         //Save to print
@@ -234,9 +222,7 @@ namespace CE02_DatabaseConnectivity
 
         //Delete Contact Button
         private void btn_deleteContact_Click(object sender, EventArgs e) {
-
-            if (listView1.Items.Count > 0)
-            {
+            if (listView1.Items.Count > 0)  {
                 conn.Open();
                 string sql = "DELETE FROM MyContacts WHERE ID = @CID;";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -248,20 +234,18 @@ namespace CE02_DatabaseConnectivity
                 rdr = cmd.ExecuteReader();
                 conn.Close();
 
-                if (currentRow > 0)
-                {
+                if (currentRow > 0)  {
                     currentRow--;
                 }
                 else { currentRow = 0; }
             }
-            else { MessageBox.Show("There are no contacts to delete"); }
-
+            else {
+                MessageBox.Show("There are no contacts to delete");
+            }
             
             RetrieveData();
             PopulateToListView();
             PopulateFields();
-
-
         }
 
         //Save New Button
@@ -273,32 +257,26 @@ namespace CE02_DatabaseConnectivity
             MySqlDataReader rdr = null;
 
             //first name validation
-            if (Contact.validateName(txtBox_firstName.Text.Trim()))
-            {
+            if (Contact.validateName(txtBox_firstName.Text.Trim()))  {
                 cmd.Parameters.AddWithValue("@fName", txtBox_firstName.Text);
 
                 //last name validation
-                if (Contact.validateName(txtBox_lastName.Text.Trim()))
-                {
+                if (Contact.validateName(txtBox_lastName.Text.Trim())) {
                     cmd.Parameters.AddWithValue("@lName", txtBox_lastName.Text);
 
                     //Phone number validation
-                    if (Contact.validatePhone(txtBox_phoneNumber.Text.Trim()))
-                    {
+                    if (Contact.validatePhone(txtBox_phoneNumber.Text.Trim())) {
                         cmd.Parameters.AddWithValue("@phone", txtBox_phoneNumber.Text);
 
                         //Email validation
-                        if (Contact.validateEmail(txtBox_emailAddress.Text.Trim()))
-                        {
+                        if (Contact.validateEmail(txtBox_emailAddress.Text.Trim())) {
                             cmd.Parameters.AddWithValue("@email", txtBox_emailAddress.Text);
 
-                            if (cmboBox_relation.Text == "")
-                            {
+                            if (cmboBox_relation.Text == "") {
                                 cmd.Parameters.AddWithValue("@relation", "Other");
                             }
 
-                            else
-                            {
+                            else {
                                 cmd.Parameters.AddWithValue("@relation", cmboBox_relation.Text);
                             }
 
@@ -320,8 +298,6 @@ namespace CE02_DatabaseConnectivity
             else  { MessageBox.Show("Invalid First Name format");  }
 
                     conn.Close();
-
-
             }
 
         //Clear button
@@ -343,32 +319,26 @@ namespace CE02_DatabaseConnectivity
             cmd.Parameters.AddWithValue("@CID", ((Contact)listView1.SelectedItems[0].Tag).ContactId);
 
             //first name validation
-            if (Contact.validateName(txtBox_firstName.Text.Trim()))
-            {
+            if (Contact.validateName(txtBox_firstName.Text.Trim()))  {
                 cmd.Parameters.AddWithValue("@fName", txtBox_firstName.Text);
 
                 //last name validation
-                if (Contact.validateName(txtBox_lastName.Text.Trim()))
-                {
+                if (Contact.validateName(txtBox_lastName.Text.Trim())) {
                     cmd.Parameters.AddWithValue("@lName", txtBox_lastName.Text);
 
                     //Phone number validation
-                    if (Contact.validatePhone(txtBox_phoneNumber.Text.Trim()))
-                    {
+                    if (Contact.validatePhone(txtBox_phoneNumber.Text.Trim()))  {
                         cmd.Parameters.AddWithValue("@phone", txtBox_phoneNumber.Text);
 
                         //Email validation
-                        if (Contact.validateEmail(txtBox_emailAddress.Text.Trim()))
-                        {
+                        if (Contact.validateEmail(txtBox_emailAddress.Text.Trim()))  {
                             cmd.Parameters.AddWithValue("@email", txtBox_emailAddress.Text);
 
-                            if (cmboBox_relation.Text == "")
-                            {
+                            if (cmboBox_relation.Text == "")  {
                                 cmd.Parameters.AddWithValue("@relation", "Other");
                             }
 
-                            else
-                            {
+                            else  {
                                 cmd.Parameters.AddWithValue("@relation", cmboBox_relation.Text);
                             }
 
@@ -389,14 +359,13 @@ namespace CE02_DatabaseConnectivity
             else { MessageBox.Show("Invalid First Name format"); }
 
             conn.Close();
-
         }
 
+        //Click on contact item
         private void listView1_Click(object sender, EventArgs e)  {
-            currentRow = listView1.SelectedItems[0].Index;
+
+            currentRow = listView1.SelectedIndices[0];
             PopulateFields();
-
-
         }
 
 
