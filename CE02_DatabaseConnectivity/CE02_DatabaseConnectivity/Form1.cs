@@ -232,7 +232,92 @@ namespace CE02_DatabaseConnectivity
             listView1.Items.Remove(listView1.SelectedItems[0]);
         }
 
-       
+        //Save New Button
+        private void btn_save_Click(object sender, EventArgs e) {
+            conn.Open();
+
+            string sql = "INSERT INTO MyContacts(FirstName, LastName, PhoneNumber, Email, Relation) VALUES(@fName, @lName, @phone, @email, @relation);";
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+            MySqlDataReader rdr = null;
+
+
+            cmd.Parameters.AddWithValue("@fName", txtBox_firstName.Text);    
+            cmd.Parameters.AddWithValue("@lName", txtBox_lastName.Text);
+
+            //Phone number validation
+            if (Contact.validatePhone(txtBox_phoneNumber.Text.Trim()))  {
+                cmd.Parameters.AddWithValue("@phone", txtBox_phoneNumber.Text);
+
+                //Email validation
+                if (Contact.validateEmail(txtBox_emailAddress.Text.Trim()))  {
+                    cmd.Parameters.AddWithValue("@email", txtBox_emailAddress.Text);
+
+                    if (cmboBox_relation.Text == "")  {
+                        cmd.Parameters.AddWithValue("@relation", "Other");
+                    }
+
+                    else  {
+                        cmd.Parameters.AddWithValue("@relation", cmboBox_relation.Text);
+                    }
+
+                    rdr = cmd.ExecuteReader();
+                    conn.Close();
+
+                    RetrieveData();
+                    PopulateToListView();
+                }
+                else  {  MessageBox.Show("Invalid email address");  }
+            }
+            else  {  MessageBox.Show("Invalid phone number"); }
+
+            conn.Close();
+
+            }
+
+        //Clear button
+        private void button5_Click(object sender, EventArgs e)  {
+            txtBox_firstName.Text = "";
+            txtBox_lastName.Text = "";
+            txtBox_phoneNumber.Text = "";
+            txtBox_emailAddress.Text = "";
+            cmboBox_relation.Text = "";
+        }
+
+        //Update Contact
+        private void btn_update_Click(object sender, EventArgs e)  {
+            conn.Open();
+            string sql = "UPDATE MyContacts SET FirstName = @fName, LastName = @lName, PhoneNumber = @phone, Email = @email, Relation = @relation  WHERE ID = 245;";
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+            MySqlDataReader rdr = null;
+
+            cmd.Parameters.AddWithValue("@fName", txtBox_firstName.Text);
+            cmd.Parameters.AddWithValue("@lName", txtBox_lastName.Text);
+            cmd.Parameters.AddWithValue("@phone", txtBox_phoneNumber.Text);
+            cmd.Parameters.AddWithValue("@email", txtBox_emailAddress.Text);
+
+            if (cmboBox_relation.Text == "")
+            {
+                cmd.Parameters.AddWithValue("@relation", "Other");
+            }
+
+            else
+            {
+                cmd.Parameters.AddWithValue("@relation", cmboBox_relation.Text);
+            }
+
+            rdr = cmd.ExecuteReader();
+            conn.Close();
+
+            RetrieveData();
+            PopulateToListView();
+
+            conn.Close();
+        }
+
+        private void listView1_DoubleClick(object sender, EventArgs e)  {
+            currentRow = listView1.SelectedItems[0].Index;
+            PopulateFields();
+        }
 
 
 

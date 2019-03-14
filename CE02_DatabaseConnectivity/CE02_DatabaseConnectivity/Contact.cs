@@ -36,5 +36,14 @@ namespace CE02_DatabaseConnectivity
             return $"First Name: {firstName}\r\nLast Name: {lastName}\r\nPhone Number: {phoneNumber}\r\nEmail: {emailAddress}\r\nRelationship: {relationship}";
         }
 
+        //Validate Email Address
+        public static bool validateEmail(string emailAddress) {
+            return Regex.IsMatch (emailAddress, @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", RegexOptions.IgnoreCase);
+        }
+
+        //Validate Phone Number
+        public static bool validatePhone(string phoneNum) {
+            return Regex.IsMatch(phoneNum, @"^\(?\d{3}\)?[-\.]? *\d{3}[-\.]? *[-\.]?\d{4}$", RegexOptions.IgnoreCase);
+        }
     }
 }
