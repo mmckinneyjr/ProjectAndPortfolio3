@@ -46,16 +46,18 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmboBox_relation = new System.Windows.Forms.ComboBox();
             this.txtBox_emailAddress = new System.Windows.Forms.TextBox();
             this.txtBox_phoneNumber = new System.Windows.Forms.TextBox();
             this.txtBox_lastName = new System.Windows.Forms.TextBox();
             this.txtBox_firstName = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
+            this.btn_update = new System.Windows.Forms.Button();
+            this.btn_clear = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,12 +68,11 @@
             this.listView1.Location = new System.Drawing.Point(91, 579);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(495, 373);
+            this.listView1.Size = new System.Drawing.Size(495, 353);
             this.listView1.SmallImageList = this.imageList1;
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.SmallIcon;
-            this.listView1.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
             // 
             // imageList1
             // 
@@ -148,7 +149,7 @@
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.textBox1.Location = new System.Drawing.Point(91, 1189);
+            this.textBox1.Location = new System.Drawing.Point(91, 938);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(495, 40);
             this.textBox1.TabIndex = 7;
@@ -160,18 +161,18 @@
             this.btn_deleteContact.FlatAppearance.BorderSize = 0;
             this.btn_deleteContact.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btn_deleteContact.ForeColor = System.Drawing.Color.Red;
-            this.btn_deleteContact.Location = new System.Drawing.Point(91, 1160);
+            this.btn_deleteContact.Location = new System.Drawing.Point(349, 1163);
             this.btn_deleteContact.Name = "btn_deleteContact";
-            this.btn_deleteContact.Size = new System.Drawing.Size(495, 63);
+            this.btn_deleteContact.Size = new System.Drawing.Size(237, 63);
             this.btn_deleteContact.TabIndex = 26;
-            this.btn_deleteContact.Text = "Delete Contact";
+            this.btn_deleteContact.Text = "Delete";
             this.btn_deleteContact.UseVisualStyleBackColor = false;
             // 
             // btn_save
             // 
             this.btn_save.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(144)))), ((int)(((byte)(255)))));
             this.btn_save.ForeColor = System.Drawing.Color.White;
-            this.btn_save.Location = new System.Drawing.Point(91, 1077);
+            this.btn_save.Location = new System.Drawing.Point(91, 1093);
             this.btn_save.Name = "btn_save";
             this.btn_save.Size = new System.Drawing.Size(495, 63);
             this.btn_save.TabIndex = 24;
@@ -182,6 +183,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label5.Location = new System.Drawing.Point(86, 482);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(91, 25);
@@ -192,6 +194,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label4.Location = new System.Drawing.Point(86, 413);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 25);
@@ -202,16 +205,18 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label3.Location = new System.Drawing.Point(86, 344);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(74, 25);
+            this.label3.Size = new System.Drawing.Size(175, 25);
             this.label3.TabIndex = 21;
-            this.label3.Text = "Phone";
+            this.label3.Text = "Phone (10 digits)";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label2.Location = new System.Drawing.Point(86, 275);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(115, 25);
@@ -222,25 +227,27 @@
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label6.Location = new System.Drawing.Point(86, 206);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(116, 25);
             this.label6.TabIndex = 19;
             this.label6.Text = "First Name";
             // 
-            // comboBox1
+            // cmboBox_relation
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cmboBox_relation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmboBox_relation.FormattingEnabled = true;
+            this.cmboBox_relation.Items.AddRange(new object[] {
+            "",
             "Family",
             "Friend",
             "Business",
             "Other"});
-            this.comboBox1.Location = new System.Drawing.Point(91, 510);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(495, 33);
-            this.comboBox1.TabIndex = 18;
+            this.cmboBox_relation.Location = new System.Drawing.Point(91, 510);
+            this.cmboBox_relation.Name = "cmboBox_relation";
+            this.cmboBox_relation.Size = new System.Drawing.Size(495, 33);
+            this.cmboBox_relation.TabIndex = 18;
             // 
             // txtBox_emailAddress
             // 
@@ -275,44 +282,12 @@
             this.button3.BackColor = System.Drawing.Color.Transparent;
             this.button3.ImageIndex = 2;
             this.button3.ImageList = this.imageList2;
-            this.button3.Location = new System.Drawing.Point(381, 965);
+            this.button3.Location = new System.Drawing.Point(381, 995);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(103, 67);
             this.button3.TabIndex = 29;
             this.button3.UseVisualStyleBackColor = false;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.ImageIndex = 0;
-            this.button1.ImageList = this.imageList2;
-            this.button1.Location = new System.Drawing.Point(91, 965);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(103, 67);
-            this.button1.TabIndex = 30;
-            this.button1.UseVisualStyleBackColor = false;
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.ImageIndex = 1;
-            this.button2.ImageList = this.imageList2;
-            this.button2.Location = new System.Drawing.Point(194, 965);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(103, 67);
-            this.button2.TabIndex = 31;
-            this.button2.UseVisualStyleBackColor = false;
-            // 
-            // button4
-            // 
-            this.button4.BackColor = System.Drawing.Color.Transparent;
-            this.button4.ImageIndex = 3;
-            this.button4.ImageList = this.imageList2;
-            this.button4.Location = new System.Drawing.Point(483, 965);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(103, 67);
-            this.button4.TabIndex = 32;
-            this.button4.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // imageList2
             // 
@@ -323,6 +298,68 @@
             this.imageList2.Images.SetKeyName(2, "03Next.png");
             this.imageList2.Images.SetKeyName(3, "04Last.png");
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.ImageIndex = 0;
+            this.button1.ImageList = this.imageList2;
+            this.button1.Location = new System.Drawing.Point(91, 995);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(103, 67);
+            this.button1.TabIndex = 30;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Transparent;
+            this.button2.ImageIndex = 1;
+            this.button2.ImageList = this.imageList2;
+            this.button2.Location = new System.Drawing.Point(194, 995);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(103, 67);
+            this.button2.TabIndex = 31;
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.Transparent;
+            this.button4.ImageIndex = 3;
+            this.button4.ImageList = this.imageList2;
+            this.button4.Location = new System.Drawing.Point(483, 995);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(103, 67);
+            this.button4.TabIndex = 32;
+            this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // btn_update
+            // 
+            this.btn_update.BackColor = System.Drawing.Color.Transparent;
+            this.btn_update.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_update.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(144)))), ((int)(((byte)(255)))));
+            this.btn_update.Location = new System.Drawing.Point(91, 1163);
+            this.btn_update.Name = "btn_update";
+            this.btn_update.Size = new System.Drawing.Size(237, 63);
+            this.btn_update.TabIndex = 33;
+            this.btn_update.Text = "Update Contact";
+            this.btn_update.UseVisualStyleBackColor = false;
+            // 
+            // btn_clear
+            // 
+            this.btn_clear.BackColor = System.Drawing.Color.Transparent;
+            this.btn_clear.FlatAppearance.BorderSize = 0;
+            this.btn_clear.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_clear.ForeColor = System.Drawing.Color.Red;
+            this.btn_clear.Location = new System.Drawing.Point(483, 163);
+            this.btn_clear.Name = "btn_clear";
+            this.btn_clear.Size = new System.Drawing.Size(103, 40);
+            this.btn_clear.TabIndex = 34;
+            this.btn_clear.Text = "Clear";
+            this.btn_clear.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_clear.UseVisualStyleBackColor = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -332,6 +369,8 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(674, 1340);
             this.ControlBox = false;
+            this.Controls.Add(this.btn_clear);
+            this.Controls.Add(this.btn_update);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -343,7 +382,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmboBox_relation);
             this.Controls.Add(this.txtBox_emailAddress);
             this.Controls.Add(this.txtBox_phoneNumber);
             this.Controls.Add(this.txtBox_lastName);
@@ -357,7 +396,6 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -383,7 +421,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmboBox_relation;
         private System.Windows.Forms.TextBox txtBox_emailAddress;
         private System.Windows.Forms.TextBox txtBox_phoneNumber;
         private System.Windows.Forms.TextBox txtBox_lastName;
@@ -393,6 +431,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.ImageList imageList2;
+        private System.Windows.Forms.Button btn_update;
+        private System.Windows.Forms.Button btn_clear;
     }
 }
 

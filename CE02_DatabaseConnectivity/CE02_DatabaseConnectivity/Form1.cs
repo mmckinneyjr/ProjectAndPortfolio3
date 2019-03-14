@@ -10,14 +10,15 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.IO;
 
+
 namespace CE02_DatabaseConnectivity
 {
     public partial class Form1 : Form
     {
 
-        ContactForm contactForm;
         Contact contact;
         int contactCount = 0;
+        int currentRow = 0;
 
         MySqlConnection conn = new MySqlConnection();
         DataTable contactsDataTable = new DataTable();
@@ -35,33 +36,32 @@ namespace CE02_DatabaseConnectivity
         //Method to retrieve data
         private bool RetrieveData() {
             contactsDataTable.Clear();
-            string sql = "SELECT contactId, firstName, lastName, phoneNumber, emailAddress, relation FROM MyContacts ORDER BY firstName ASC;";
+            string sql = "SELECT ID, FirstName, LastName, PhoneNumber, Email, Relation FROM MyContacts ORDER BY FirstName ASC;";
             MySqlDataAdapter adr = new MySqlDataAdapter(sql, conn);
             adr.Fill(contactsDataTable);
             int contactCount = contactsDataTable.Select().Length;
 
             PopulateToListView();
+            PopulateFields();
 
             conn.Close();
             return true;
         }
 
-
-
         //Populate listview
         private void PopulateToListView() {
-                
+            listView1.Clear();
             for (int i = 0; i < contactsDataTable.Select().Length; i++) { 
                 ListViewItem lvi = new ListViewItem();
                 contact = new Contact();
-            lvi.Text = $"{contactsDataTable.Rows[i]["firstName"].ToString()} {contactsDataTable.Rows[i]["lastName"].ToString()}";
+            lvi.Text = $"{contactsDataTable.Rows[i]["FirstName"].ToString()} {contactsDataTable.Rows[i]["LastName"].ToString()}";
 
-                contact.ContactId = int.Parse(contactsDataTable.Rows[i]["contactId"].ToString());
-                contact.FirstName = contactsDataTable.Rows[i]["firstName"].ToString();
-                contact.LastName = contactsDataTable.Rows[i]["lastName"].ToString();
-                contact.PhoneNumber = contactsDataTable.Rows[i]["phoneNumber"].ToString();
-                contact.EmailAddress = contactsDataTable.Rows[i]["emailAddress"].ToString();
-                contact.Relationship = contactsDataTable.Rows[i]["relation"].ToString();
+                contact.ContactId = int.Parse(contactsDataTable.Rows[i]["ID"].ToString());
+                contact.FirstName = contactsDataTable.Rows[i]["FirstName"].ToString();
+                contact.LastName = contactsDataTable.Rows[i]["LastName"].ToString();
+                contact.PhoneNumber = contactsDataTable.Rows[i]["PhoneNumber"].ToString();
+                contact.EmailAddress = contactsDataTable.Rows[i]["Email"].ToString();
+                contact.Relationship = contactsDataTable.Rows[i]["Relation"].ToString();
 
 
                 switch (contact.Relationship) {
@@ -76,29 +76,29 @@ namespace CE02_DatabaseConnectivity
                 lvi.Tag = contact;
 
                 listView1.Items.Add(lvi);
+
+
             }
+            listView1.Items[currentRow].Selected = true;
 
             contactCount = contactsDataTable.Select().Length;
             textBox1.Text = $"Contacts {contactCount}";
+
         }
 
-
-
-        //Add new contact
-        private void btn_addNew_Click(object sender, EventArgs e)  {
-            contactForm = new ContactForm();
-            contactForm.Show();
-        }
-
-
-
-   //Exit application
+        //Exit application
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
             Application.Exit();
         }
 
-
-
+        //Populate Screen Fields
+        private void PopulateFields() {
+            txtBox_firstName.Text = contactsDataTable.Rows[currentRow]["FirstName"].ToString();
+            txtBox_lastName.Text = contactsDataTable.Rows[currentRow]["LastName"].ToString();
+            txtBox_phoneNumber.Text = contactsDataTable.Rows[currentRow]["PhoneNumber"].ToString();
+            txtBox_emailAddress.Text = contactsDataTable.Rows[currentRow]["Email"].ToString();
+            cmboBox_relation.Text = contactsDataTable.Rows[currentRow]["Relation"].ToString();
+        }
 
         //Written by Keith Webster.  Used with permission.  Not to be distributed.  
         //Place this inside the class space in the form you would like to size.
@@ -126,6 +126,16 @@ namespace CE02_DatabaseConnectivity
             btn_deleteContact.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btn_deleteContact.FlatAppearance.MouseDownBackColor = Color.Transparent;
 
+            btn_clear.FlatStyle = FlatStyle.Flat;
+            btn_clear.FlatAppearance.BorderSize = 0;
+            btn_clear.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btn_clear.FlatAppearance.MouseDownBackColor = Color.Transparent;
+
+            btn_update.FlatStyle = FlatStyle.Flat;
+            btn_update.FlatAppearance.BorderSize = 0;
+            btn_update.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btn_update.FlatAppearance.MouseDownBackColor = Color.Transparent;
+
             button1.FlatStyle = FlatStyle.Flat;
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatAppearance.MouseOverBackColor = Color.Transparent;
@@ -148,8 +158,6 @@ namespace CE02_DatabaseConnectivity
 
         }
 
-
-
         //Save to print
         private void saveToPrintToolStripMenuItem_Click(object sender, EventArgs e) {
             SaveFileDialog saveFile = new SaveFileDialog();
@@ -169,17 +177,63 @@ namespace CE02_DatabaseConnectivity
             }
         }
 
-
-
-        //Open contact
-        private void listView1_DoubleClick(object sender, EventArgs e) {
-            contactForm = new ContactForm();
-            contactForm.ShowDialog();
+        //First Button
+        private void button1_Click(object sender, EventArgs e)  {
+            currentRow = 0;
+            PopulateFields();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
+        //Previous button
+        private void button2_Click(object sender, EventArgs e)  {
+            if (currentRow > 0) {
+                currentRow--;
+                PopulateFields();
+                listView1.Items[currentRow].Selected = true;
+            }
+
+            else {
+                currentRow = contactsDataTable.Select().Length - 1;
+                PopulateFields();
+            }
 
         }
+
+        //Next Button
+        private void button3_Click(object sender, EventArgs e) {
+            if (currentRow < contactsDataTable.Select().Length - 1 ) {
+                currentRow++;
+                PopulateFields();
+            }
+
+            else {
+                currentRow = 0;
+                PopulateFields();
+            }
+        }
+
+        //Last Button
+        private void button4_Click(object sender, EventArgs e)  {
+            currentRow = contactsDataTable.Select().Length - 1;
+            PopulateFields();
+        }
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

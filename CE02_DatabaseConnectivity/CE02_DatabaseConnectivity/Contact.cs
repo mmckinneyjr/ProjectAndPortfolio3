@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace CE02_DatabaseConnectivity
 {
@@ -17,7 +18,6 @@ namespace CE02_DatabaseConnectivity
         string relationship;
         int relationshipIndex;
 
-
         public int ContactId { get => contactId; set => contactId = value; }
         public string FirstName { get => firstName; set => firstName = value; }
         public string LastName { get => lastName; set => lastName = value; }
@@ -31,8 +31,17 @@ namespace CE02_DatabaseConnectivity
             return $"{firstName} {lastName}";
         }
 
+        //Text file string for saving to print
         public string SaveOutput() {
             return $"First Name: {firstName}\r\nLast Name: {lastName}\r\nPhone Number: {phoneNumber}\r\nEmail: {emailAddress}\r\nRelationship: {relationship}";
         }
+
+
+
+
+
+
+
+        
     }
 }
