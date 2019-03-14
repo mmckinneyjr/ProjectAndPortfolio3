@@ -63,7 +63,8 @@
             // 
             // listView1
             // 
-            this.listView1.Alignment = System.Windows.Forms.ListViewAlignment.Left;
+            this.listView1.Alignment = System.Windows.Forms.ListViewAlignment.SnapToGrid;
+            this.listView1.BackColor = System.Drawing.SystemColors.Window;
             this.listView1.Font = new System.Drawing.Font("Calibri", 10F);
             this.listView1.Location = new System.Drawing.Point(91, 579);
             this.listView1.MultiSelect = false;
@@ -73,7 +74,7 @@
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.SmallIcon;
-            this.listView1.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
+            this.listView1.Click += new System.EventHandler(this.listView1_Click);
             // 
             // imageList1
             // 

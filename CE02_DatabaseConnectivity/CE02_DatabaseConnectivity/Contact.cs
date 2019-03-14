@@ -45,5 +45,11 @@ namespace CE02_DatabaseConnectivity
         public static bool validatePhone(string phoneNum) {
             return Regex.IsMatch(phoneNum, @"^\(?\d{3}\)?[-\.]? *\d{3}[-\.]? *[-\.]?\d{4}$", RegexOptions.IgnoreCase);
         }
+
+        //Validate Name String
+        public static bool validateName(string name)  {
+            return Regex.IsMatch(name, @"^[a-zA-Z]+$", RegexOptions.IgnoreCase);
+        }
+
     }
 }

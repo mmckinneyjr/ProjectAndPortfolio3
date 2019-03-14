@@ -19,6 +19,7 @@ namespace CE02_DatabaseConnectivity
         Contact contact;
         int contactCount = 0;
         int currentRow = 0;
+        
 
         MySqlConnection conn = new MySqlConnection();
         DataTable contactsDataTable = new DataTable();
@@ -36,7 +37,7 @@ namespace CE02_DatabaseConnectivity
         //Method to retrieve data
         private bool RetrieveData() {
             contactsDataTable.Clear();
-            string sql = "SELECT ID, FirstName, LastName, PhoneNumber, Email, Relation FROM MyContacts ORDER BY FirstName ASC;";
+            string sql = "SELECT ID, FirstName, LastName, PhoneNumber, Email, Relation FROM MyContacts;";
             MySqlDataAdapter adr = new MySqlDataAdapter(sql, conn);
             adr.Fill(contactsDataTable);
             int contactCount = contactsDataTable.Select().Length;
@@ -78,12 +79,15 @@ namespace CE02_DatabaseConnectivity
                 listView1.Items.Add(lvi);
 
 
+                listView1.Focus();
+                listView1.Select();
+                listView1.Items[0].Focused = true;
+                listView1.Items[0].Selected = true;
+
             }
-            listView1.Items[currentRow].Selected = true;
 
             contactCount = contactsDataTable.Select().Length;
             textBox1.Text = $"Contacts {contactCount}";
-
         }
 
         //Exit application
@@ -93,12 +97,21 @@ namespace CE02_DatabaseConnectivity
 
         //Populate Screen Fields
         private void PopulateFields() {
+            if ( contactsDataTable.Rows.Count > 0)
+            {
+                txtBox_firstName.Text = contactsDataTable.Rows[currentRow]["FirstName"].ToString();
+                txtBox_lastName.Text = contactsDataTable.Rows[currentRow]["LastName"].ToString();
+                txtBox_phoneNumber.Text = contactsDataTable.Rows[currentRow]["PhoneNumber"].ToString();
+                txtBox_emailAddress.Text = contactsDataTable.Rows[currentRow]["Email"].ToString();
+                cmboBox_relation.Text = contactsDataTable.Rows[currentRow]["Relation"].ToString();
+            }
 
-            txtBox_firstName.Text = contactsDataTable.Rows[currentRow]["FirstName"].ToString();
-            txtBox_lastName.Text = contactsDataTable.Rows[currentRow]["LastName"].ToString();
-            txtBox_phoneNumber.Text = contactsDataTable.Rows[currentRow]["PhoneNumber"].ToString();
-            txtBox_emailAddress.Text = contactsDataTable.Rows[currentRow]["Email"].ToString();
-            cmboBox_relation.Text = contactsDataTable.Rows[currentRow]["Relation"].ToString();
+
+            listView1.Focus();
+            listView1.Select();
+            listView1.Items[0].Focused = true;
+            listView1.Items[0].Selected = true;
+
         }
 
         //Written by Keith Webster.  Used with permission.  Not to be distributed.  
@@ -156,6 +169,7 @@ namespace CE02_DatabaseConnectivity
             button4.FlatAppearance.BorderSize = 0;
             button4.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button4.FlatAppearance.MouseDownBackColor = Color.Transparent;
+
 
         }
 
@@ -220,16 +234,34 @@ namespace CE02_DatabaseConnectivity
 
         //Delete Contact Button
         private void btn_deleteContact_Click(object sender, EventArgs e) {
-            conn.Open();
-            string sql = "DELETE FROM MyContacts WHERE ID = @CID;";
-            MySqlCommand cmd = new MySqlCommand(sql, conn);
-            MySqlDataReader rdr = null;
 
-            cmd.Parameters.AddWithValue("@CID", ((Contact)listView1.SelectedItems[0].Tag).ContactId);
-            rdr = cmd.ExecuteReader();
-            conn.Close();
+            if (listView1.Items.Count > 0)
+            {
+                conn.Open();
+                string sql = "DELETE FROM MyContacts WHERE ID = @CID;";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = null;
 
-            listView1.Items.Remove(listView1.SelectedItems[0]);
+                listView1.Items[currentRow].Selected = true;
+
+                cmd.Parameters.AddWithValue("@CID", ((Contact)listView1.SelectedItems[0].Tag).ContactId);
+                rdr = cmd.ExecuteReader();
+                conn.Close();
+
+                if (currentRow > 0)
+                {
+                    currentRow--;
+                }
+                else { currentRow = 0; }
+            }
+            else { MessageBox.Show("There are no contacts to delete"); }
+
+            
+            RetrieveData();
+            PopulateToListView();
+            PopulateFields();
+
+
         }
 
         //Save New Button
@@ -240,37 +272,55 @@ namespace CE02_DatabaseConnectivity
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader rdr = null;
 
+            //first name validation
+            if (Contact.validateName(txtBox_firstName.Text.Trim()))
+            {
+                cmd.Parameters.AddWithValue("@fName", txtBox_firstName.Text);
 
-            cmd.Parameters.AddWithValue("@fName", txtBox_firstName.Text);    
-            cmd.Parameters.AddWithValue("@lName", txtBox_lastName.Text);
+                //last name validation
+                if (Contact.validateName(txtBox_lastName.Text.Trim()))
+                {
+                    cmd.Parameters.AddWithValue("@lName", txtBox_lastName.Text);
 
-            //Phone number validation
-            if (Contact.validatePhone(txtBox_phoneNumber.Text.Trim()))  {
-                cmd.Parameters.AddWithValue("@phone", txtBox_phoneNumber.Text);
+                    //Phone number validation
+                    if (Contact.validatePhone(txtBox_phoneNumber.Text.Trim()))
+                    {
+                        cmd.Parameters.AddWithValue("@phone", txtBox_phoneNumber.Text);
 
-                //Email validation
-                if (Contact.validateEmail(txtBox_emailAddress.Text.Trim()))  {
-                    cmd.Parameters.AddWithValue("@email", txtBox_emailAddress.Text);
+                        //Email validation
+                        if (Contact.validateEmail(txtBox_emailAddress.Text.Trim()))
+                        {
+                            cmd.Parameters.AddWithValue("@email", txtBox_emailAddress.Text);
 
-                    if (cmboBox_relation.Text == "")  {
-                        cmd.Parameters.AddWithValue("@relation", "Other");
+                            if (cmboBox_relation.Text == "")
+                            {
+                                cmd.Parameters.AddWithValue("@relation", "Other");
+                            }
+
+                            else
+                            {
+                                cmd.Parameters.AddWithValue("@relation", cmboBox_relation.Text);
+                            }
+
+                            rdr = cmd.ExecuteReader();
+                            conn.Close();
+
+                            RetrieveData();
+                            PopulateToListView();
+                            currentRow = listView1.Items.Count - 1;
+                            PopulateFields();
+
+                        }
+                        else { MessageBox.Show("Invalid email address"); }
                     }
+                    else { MessageBox.Show("Invalid phone number"); }
+                }
+                else { MessageBox.Show("Invalid Last Name format"); }
+            }
+            else  { MessageBox.Show("Invalid First Name format");  }
 
-                    else  {
-                        cmd.Parameters.AddWithValue("@relation", cmboBox_relation.Text);
-                    }
-
-                    rdr = cmd.ExecuteReader();
                     conn.Close();
 
-                    RetrieveData();
-                    PopulateToListView();
-                }
-                else  {  MessageBox.Show("Invalid email address");  }
-            }
-            else  {  MessageBox.Show("Invalid phone number"); }
-
-            conn.Close();
 
             }
 
@@ -286,37 +336,67 @@ namespace CE02_DatabaseConnectivity
         //Update Contact
         private void btn_update_Click(object sender, EventArgs e)  {
             conn.Open();
-            string sql = "UPDATE MyContacts SET FirstName = @fName, LastName = @lName, PhoneNumber = @phone, Email = @email, Relation = @relation  WHERE ID = 245;";
+            string sql = "UPDATE MyContacts SET FirstName = @fName, LastName = @lName, PhoneNumber = @phone, Email = @email, Relation = @relation  WHERE ID = @CID;";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader rdr = null;
 
-            cmd.Parameters.AddWithValue("@fName", txtBox_firstName.Text);
-            cmd.Parameters.AddWithValue("@lName", txtBox_lastName.Text);
-            cmd.Parameters.AddWithValue("@phone", txtBox_phoneNumber.Text);
-            cmd.Parameters.AddWithValue("@email", txtBox_emailAddress.Text);
+            cmd.Parameters.AddWithValue("@CID", ((Contact)listView1.SelectedItems[0].Tag).ContactId);
 
-            if (cmboBox_relation.Text == "")
+            //first name validation
+            if (Contact.validateName(txtBox_firstName.Text.Trim()))
             {
-                cmd.Parameters.AddWithValue("@relation", "Other");
-            }
+                cmd.Parameters.AddWithValue("@fName", txtBox_firstName.Text);
 
-            else
-            {
-                cmd.Parameters.AddWithValue("@relation", cmboBox_relation.Text);
-            }
+                //last name validation
+                if (Contact.validateName(txtBox_lastName.Text.Trim()))
+                {
+                    cmd.Parameters.AddWithValue("@lName", txtBox_lastName.Text);
 
-            rdr = cmd.ExecuteReader();
+                    //Phone number validation
+                    if (Contact.validatePhone(txtBox_phoneNumber.Text.Trim()))
+                    {
+                        cmd.Parameters.AddWithValue("@phone", txtBox_phoneNumber.Text);
+
+                        //Email validation
+                        if (Contact.validateEmail(txtBox_emailAddress.Text.Trim()))
+                        {
+                            cmd.Parameters.AddWithValue("@email", txtBox_emailAddress.Text);
+
+                            if (cmboBox_relation.Text == "")
+                            {
+                                cmd.Parameters.AddWithValue("@relation", "Other");
+                            }
+
+                            else
+                            {
+                                cmd.Parameters.AddWithValue("@relation", cmboBox_relation.Text);
+                            }
+
+                            rdr = cmd.ExecuteReader();
+                            conn.Close();
+
+                            RetrieveData();
+                            PopulateToListView();
+                            PopulateFields();
+
+                        }
+                        else { MessageBox.Show("Invalid email address"); }
+                    }
+                    else { MessageBox.Show("Invalid phone number"); }
+                }
+                else { MessageBox.Show("Invalid Last Name format"); }
+            }
+            else { MessageBox.Show("Invalid First Name format"); }
+
             conn.Close();
 
-            RetrieveData();
-            PopulateToListView();
-
-            conn.Close();
         }
 
-        private void listView1_DoubleClick(object sender, EventArgs e)  {
+        private void listView1_Click(object sender, EventArgs e)  {
             currentRow = listView1.SelectedItems[0].Index;
             PopulateFields();
+
+
         }
 
 
