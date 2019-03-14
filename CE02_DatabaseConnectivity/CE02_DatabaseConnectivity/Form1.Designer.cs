@@ -167,6 +167,7 @@
             this.btn_deleteContact.TabIndex = 26;
             this.btn_deleteContact.Text = "Delete";
             this.btn_deleteContact.UseVisualStyleBackColor = false;
+            this.btn_deleteContact.Click += new System.EventHandler(this.btn_deleteContact_Click);
             // 
             // btn_save
             // 

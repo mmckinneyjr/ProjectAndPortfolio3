@@ -93,6 +93,7 @@ namespace CE02_DatabaseConnectivity
 
         //Populate Screen Fields
         private void PopulateFields() {
+
             txtBox_firstName.Text = contactsDataTable.Rows[currentRow]["FirstName"].ToString();
             txtBox_lastName.Text = contactsDataTable.Rows[currentRow]["LastName"].ToString();
             txtBox_phoneNumber.Text = contactsDataTable.Rows[currentRow]["PhoneNumber"].ToString();
@@ -217,7 +218,21 @@ namespace CE02_DatabaseConnectivity
             PopulateFields();
         }
 
-     
+        //Delete Contact Button
+        private void btn_deleteContact_Click(object sender, EventArgs e) {
+            conn.Open();
+            string sql = "DELETE FROM MyContacts WHERE ID = @CID;";
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+            MySqlDataReader rdr = null;
+
+            cmd.Parameters.AddWithValue("@CID", ((Contact)listView1.SelectedItems[0].Tag).ContactId);
+            rdr = cmd.ExecuteReader();
+            conn.Close();
+
+            listView1.Items.Remove(listView1.SelectedItems[0]);
+        }
+
+       
 
 
 

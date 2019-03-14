@@ -36,12 +36,5 @@ namespace CE02_DatabaseConnectivity
             return $"First Name: {firstName}\r\nLast Name: {lastName}\r\nPhone Number: {phoneNumber}\r\nEmail: {emailAddress}\r\nRelationship: {relationship}";
         }
 
-
-
-
-
-
-
-        
     }
 }
