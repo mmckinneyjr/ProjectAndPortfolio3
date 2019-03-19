@@ -18,18 +18,17 @@ namespace TicTacToe
         // PROJECT: Tic Tac Toe
 
         Dictionary<Button, Square> Squares = new Dictionary<Button, Square>();
-        Square[] SquaresData = new Square[9];
 
         public void InitializeSquares() {
-            Squares.Add(r1c1button, SquaresData[0] = new Square());
-            Squares.Add(r1c2button, SquaresData[1] = new Square());
-            Squares.Add(r1c3button, SquaresData[2] = new Square());
-            Squares.Add(r2c1button, SquaresData[3] = new Square());
-            Squares.Add(r2c2button, SquaresData[4] = new Square());
-            Squares.Add(r2c3button, SquaresData[5] = new Square());
-            Squares.Add(r3c1button, SquaresData[6] = new Square());
-            Squares.Add(r3c2button, SquaresData[7] = new Square());
-            Squares.Add(r3c3button, SquaresData[8] = new Square());
+            Squares.Add(r1c1button, new Square());
+            Squares.Add(r1c2button, new Square());
+            Squares.Add(r1c3button, new Square());
+            Squares.Add(r2c1button, new Square());
+            Squares.Add(r2c2button, new Square());
+            Squares.Add(r2c3button, new Square());
+            Squares.Add(r3c1button, new Square());
+            Squares.Add(r3c2button, new Square());
+            Squares.Add(r3c3button, new Square());
         }
 
 
@@ -162,30 +161,30 @@ namespace TicTacToe
         //Winner Logic Combinations
         private void Winner() {
 
-                //x winner combos
-                if (Squares[r1c1button].IsX == true && Squares[r1c2button].IsX == true && Squares[r1c3button].IsX == true) { MessageBox.Show("X has WON!"); }
-                else if (Squares[r2c1button].IsX == true && Squares[r2c2button].IsX == true && Squares[r2c3button].IsX == true) { MessageBox.Show("X has WON!"); }
-                else if (Squares[r3c1button].IsX == true && Squares[r3c2button].IsX == true && Squares[r3c3button].IsX == true) { MessageBox.Show("X has WON!"); }
-                else if (Squares[r1c1button].IsX == true && Squares[r2c1button].IsX == true && Squares[r3c1button].IsX == true) { MessageBox.Show("X has WON!"); }
-                else if (Squares[r1c2button].IsX == true && Squares[r2c2button].IsX == true && Squares[r3c2button].IsX == true) { MessageBox.Show("X has WON!"); }
-                else if (Squares[r1c3button].IsX == true && Squares[r2c3button].IsX == true && Squares[r3c3button].IsX == true) { MessageBox.Show("X has WON!"); }
-                else if (Squares[r1c1button].IsX == true && Squares[r2c2button].IsX == true && Squares[r3c3button].IsX == true) { MessageBox.Show("X has WON!"); }
-                else if (Squares[r3c1button].IsX == true && Squares[r2c2button].IsX == true && Squares[r1c3button].IsX == true) { MessageBox.Show("X has WON!"); }
-                else if (Squares[r1c3button].IsX == true && Squares[r2c3button].IsX == true && Squares[r3c3button].IsX == true) { MessageBox.Show("X has WON!"); }
+                 //x winner combos
+                 if (Squares[r1c1button].IsX == true && Squares[r1c2button].IsX == true && Squares[r1c3button].IsX == true) { MessageBox.Show("X has WON!\r\n\r\nClick OK to start a new game"); NewGame(); }
+            else if (Squares[r2c1button].IsX == true && Squares[r2c2button].IsX == true && Squares[r2c3button].IsX == true) { MessageBox.Show("X has WON!\r\n\r\nClick OK to start a new game"); NewGame(); }
+            else if (Squares[r3c1button].IsX == true && Squares[r3c2button].IsX == true && Squares[r3c3button].IsX == true) { MessageBox.Show("X has WON!\r\n\r\nClick OK to start a new game"); NewGame(); }
+            else if (Squares[r1c1button].IsX == true && Squares[r2c1button].IsX == true && Squares[r3c1button].IsX == true) { MessageBox.Show("X has WON!\r\n\r\nClick OK to start a new game"); NewGame(); }
+            else if (Squares[r1c2button].IsX == true && Squares[r2c2button].IsX == true && Squares[r3c2button].IsX == true) { MessageBox.Show("X has WON!\r\n\r\nClick OK to start a new game"); NewGame(); }
+            else if (Squares[r1c3button].IsX == true && Squares[r2c3button].IsX == true && Squares[r3c3button].IsX == true) { MessageBox.Show("X has WON!\r\n\r\nClick OK to start a new game"); NewGame(); }
+            else if (Squares[r1c1button].IsX == true && Squares[r2c2button].IsX == true && Squares[r3c3button].IsX == true) { MessageBox.Show("X has WON!\r\n\r\nClick OK to start a new game"); NewGame(); }
+            else if (Squares[r3c1button].IsX == true && Squares[r2c2button].IsX == true && Squares[r1c3button].IsX == true) { MessageBox.Show("X has WON!\r\n\r\nClick OK to start a new game"); NewGame(); }
+            else if (Squares[r1c3button].IsX == true && Squares[r2c3button].IsX == true && Squares[r3c3button].IsX == true) { MessageBox.Show("X has WON!\r\n\r\nClick OK to start a new game"); NewGame(); }
 
-                //O winner combos
-                else if (Squares[r1c1button].IsO == true && Squares[r1c2button].IsO == true && Squares[r1c3button].IsO == true) { MessageBox.Show("O has WON!"); }
-                else if (Squares[r2c1button].IsO == true && Squares[r2c2button].IsO == true && Squares[r2c3button].IsO == true) { MessageBox.Show("O has WON!"); }
-                else if (Squares[r3c1button].IsO == true && Squares[r3c2button].IsO == true && Squares[r3c3button].IsO == true) { MessageBox.Show("O has WON!"); }
-                else if (Squares[r1c1button].IsO == true && Squares[r2c1button].IsO == true && Squares[r3c1button].IsO == true) { MessageBox.Show("O has WON!"); }
-                else if (Squares[r1c2button].IsO == true && Squares[r2c2button].IsO == true && Squares[r3c2button].IsO == true) { MessageBox.Show("O has WON!"); }
-                else if (Squares[r1c3button].IsO == true && Squares[r2c3button].IsO == true && Squares[r3c3button].IsO == true) { MessageBox.Show("O has WON!"); }
-                else if (Squares[r1c1button].IsO == true && Squares[r2c2button].IsO == true && Squares[r3c3button].IsO == true) { MessageBox.Show("O has WON!"); }
-                else if (Squares[r3c1button].IsO == true && Squares[r2c2button].IsO == true && Squares[r1c3button].IsO == true) { MessageBox.Show("O has WON!"); }
-                else if (Squares[r1c3button].IsO == true && Squares[r2c3button].IsO == true && Squares[r3c3button].IsO == true) { MessageBox.Show("O has WON!"); }
+            //O winner combos
+            else if (Squares[r1c1button].IsO == true && Squares[r1c2button].IsO == true && Squares[r1c3button].IsO == true) { MessageBox.Show("O has WON!\r\n\r\nClick OK to start a new game"); NewGame(); }
+            else if (Squares[r2c1button].IsO == true && Squares[r2c2button].IsO == true && Squares[r2c3button].IsO == true) { MessageBox.Show("O has WON!\r\n\r\nClick OK to start a new game"); NewGame(); }
+            else if (Squares[r3c1button].IsO == true && Squares[r3c2button].IsO == true && Squares[r3c3button].IsO == true) { MessageBox.Show("O has WON!\r\n\r\nClick OK to start a new game"); NewGame(); }
+            else if (Squares[r1c1button].IsO == true && Squares[r2c1button].IsO == true && Squares[r3c1button].IsO == true) { MessageBox.Show("O has WON!\r\n\r\nClick OK to start a new game"); NewGame(); }
+            else if (Squares[r1c2button].IsO == true && Squares[r2c2button].IsO == true && Squares[r3c2button].IsO == true) { MessageBox.Show("O has WON!\r\n\r\nClick OK to start a new game"); NewGame(); }
+            else if (Squares[r1c3button].IsO == true && Squares[r2c3button].IsO == true && Squares[r3c3button].IsO == true) { MessageBox.Show("O has WON!\r\n\r\nClick OK to start a new game"); NewGame(); }
+            else if (Squares[r1c1button].IsO == true && Squares[r2c2button].IsO == true && Squares[r3c3button].IsO == true) { MessageBox.Show("O has WON!\r\n\r\nClick OK to start a new game"); NewGame(); }
+            else if (Squares[r3c1button].IsO == true && Squares[r2c2button].IsO == true && Squares[r1c3button].IsO == true) { MessageBox.Show("O has WON!\r\n\r\nClick OK to start a new game"); NewGame(); }
+            else if (Squares[r1c3button].IsO == true && Squares[r2c3button].IsO == true && Squares[r3c3button].IsO == true) { MessageBox.Show("O has WON!\r\n\r\nClick OK to start a new game"); NewGame(); }
 
-                //All squares are fill with no winner
-                else if(Squares[r1c1button].IsEmpty == false &&
+            //All squares are fill with no winner
+            else if(Squares[r1c1button].IsEmpty == false &&
                    Squares[r1c2button].IsEmpty == false &&
                    Squares[r1c3button].IsEmpty == false &&
                    Squares[r2c1button].IsEmpty == false &&
@@ -193,12 +192,49 @@ namespace TicTacToe
                    Squares[r2c3button].IsEmpty == false &&
                    Squares[r3c1button].IsEmpty == false &&
                    Squares[r3c2button].IsEmpty == false &&
-                   Squares[r3c3button].IsEmpty == false) { MessageBox.Show("It's a Draw"); }        
+                   Squares[r3c3button].IsEmpty == false) { MessageBox.Show("It's a Draw\r\n\r\nClick OK to start a new game"); NewGame(); }
+        
+
         }
 
         //Exit application
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
             Application.Exit();
+        }
+
+
+        //New Game Fuction
+        private void NewGame() {
+            xToolStripMenuItem.Enabled = true;
+            oToolStripMenuItem.Enabled = true;
+            xToolStripMenuItem.Checked = false;
+            oToolStripMenuItem.Checked = false;
+            blueToolStripMenuItem.Checked = true;
+            redToolStripMenuItem.Checked = false;
+
+            foreach (var s in Squares)  {
+                s.Value.IsEmpty = true;
+                s.Value.IsBlue = false;
+                s.Value.IsRed = false;
+                s.Value.IsX = false;
+                s.Value.IsO = false;
+            }
+
+            r1c1button.BackgroundImage = null;
+            r1c2button.BackgroundImage = null;
+            r1c3button.BackgroundImage = null;
+            r2c1button.BackgroundImage = null;
+            r2c2button.BackgroundImage = null;
+            r2c3button.BackgroundImage = null;
+            r3c1button.BackgroundImage = null;
+            r3c2button.BackgroundImage = null;
+            r3c3button.BackgroundImage = null;
+        }
+
+
+        //Start New game button
+        private void toolStripButton1_Click(object sender, EventArgs e) {
+            NewGame();
         }
     }
 }
