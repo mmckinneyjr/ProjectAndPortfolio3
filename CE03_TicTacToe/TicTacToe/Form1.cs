@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -50,13 +50,85 @@ namespace TicTacToe
             oToolStripMenuItem.Checked = true;
         }
 
+        //Select a square method
+        private void MarkSelectionMethod(Button selectedButton) {
+
+            if (xToolStripMenuItem.Checked == false && oToolStripMenuItem.Checked == false) {
+                MessageBox.Show("Please Select \"X\" or \"O\" first");
+            }
+
+            else {
+
+                oToolStripMenuItem.Enabled = false;
+                xToolStripMenuItem.Enabled = false;
+
+                if (Squares[selectedButton].IsEmpty == true) {
+
+                    if (xToolStripMenuItem.Checked == true && blueToolStripMenuItem.Checked == true)  {
+                        Squares[selectedButton].IsEmpty = false;
+                        Squares[selectedButton].IsBlue = true;
+                        Squares[selectedButton].IsRed = false;
+                        Squares[selectedButton].IsX = true;
+                        Squares[selectedButton].IsO = false;
+                        selectedButton.BackgroundImage = blueImages.Images[1];
+                    }
+                    else if (oToolStripMenuItem.Checked == true && blueToolStripMenuItem.Checked == true) {
+                        Squares[selectedButton].IsEmpty = false;
+                        Squares[selectedButton].IsBlue = true;
+                        Squares[selectedButton].IsRed = false;
+                        Squares[selectedButton].IsX = false;
+                        Squares[selectedButton].IsO = true;
+                        selectedButton.BackgroundImage = blueImages.Images[0];
+                    }
+                    else if (xToolStripMenuItem.Checked == true && redToolStripMenuItem.Checked == true)  {
+                        Squares[selectedButton].IsEmpty = false;
+                        Squares[selectedButton].IsBlue = false;
+                        Squares[selectedButton].IsRed = true;
+                        Squares[selectedButton].IsX = true;
+                        Squares[selectedButton].IsO = false;
+                        selectedButton.BackgroundImage = redImages.Images[1];
+                    }
+                    else if (oToolStripMenuItem.Checked == true && redToolStripMenuItem.Checked == true) {
+                        Squares[selectedButton].IsEmpty = false;
+                        Squares[selectedButton].IsBlue = false;
+                        Squares[selectedButton].IsRed = true;
+                        Squares[selectedButton].IsX = false;
+                        Squares[selectedButton].IsO = true;
+                        selectedButton.BackgroundImage = redImages.Images[0];
+                    }
+                }
+                else { MessageBox.Show("That space has already been take\r\nPlease make another selection"); }
+            }
+
+            if (xToolStripMenuItem.Checked == true && oToolStripMenuItem.Checked == false) {
+                xToolStripMenuItem.Checked = false;
+                oToolStripMenuItem.Checked = true;
+            }
+
+            else if (xToolStripMenuItem.Checked == false && oToolStripMenuItem.Checked == true) {
+                xToolStripMenuItem.Checked = true;
+                oToolStripMenuItem.Checked = false;
+            }
+
+            Winner();
+        }
+
+
         //Switch color to blue
         private void blueToolStripMenuItem_Click(object sender, EventArgs e) {
             blueToolStripMenuItem.Checked = true;
             redToolStripMenuItem.Checked = false;
 
-        }
+            foreach (var b in Squares) {
 
+                if (b.Value.IsX) {
+                    b.Key.BackgroundImage = blueImages.Images[1];
+                }
+                else if (b.Value.IsO) {
+                    b.Key.BackgroundImage = blueImages.Images[0];
+                }
+            }
+        }
 
 
         //Switch color to red
@@ -64,9 +136,54 @@ namespace TicTacToe
             blueToolStripMenuItem.Checked = false;
             redToolStripMenuItem.Checked = true;
 
+            foreach (var r in Squares) {
+
+                if (r.Value.IsX) {
+                    r.Key.BackgroundImage = redImages.Images[1];
+                }
+                else if (r.Value.IsO) {
+                    r.Key.BackgroundImage = redImages.Images[0];
+                }
+            }
         }
 
 
+        //Winner Logic Combinations
+        private void Winner() {
+
+                //x winner combos
+                if (Squares[r1c1button].IsX == true && Squares[r1c2button].IsX == true && Squares[r1c3button].IsX == true) { MessageBox.Show("X has WON!"); }
+                else if (Squares[r2c1button].IsX == true && Squares[r2c2button].IsX == true && Squares[r2c3button].IsX == true) { MessageBox.Show("X has WON!"); }
+                else if (Squares[r3c1button].IsX == true && Squares[r3c2button].IsX == true && Squares[r3c3button].IsX == true) { MessageBox.Show("X has WON!"); }
+                else if (Squares[r1c1button].IsX == true && Squares[r2c1button].IsX == true && Squares[r3c1button].IsX == true) { MessageBox.Show("X has WON!"); }
+                else if (Squares[r1c2button].IsX == true && Squares[r2c2button].IsX == true && Squares[r3c2button].IsX == true) { MessageBox.Show("X has WON!"); }
+                else if (Squares[r1c3button].IsX == true && Squares[r2c3button].IsX == true && Squares[r3c3button].IsX == true) { MessageBox.Show("X has WON!"); }
+                else if (Squares[r1c1button].IsX == true && Squares[r2c2button].IsX == true && Squares[r3c3button].IsX == true) { MessageBox.Show("X has WON!"); }
+                else if (Squares[r3c1button].IsX == true && Squares[r2c2button].IsX == true && Squares[r1c3button].IsX == true) { MessageBox.Show("X has WON!"); }
+                else if (Squares[r1c3button].IsX == true && Squares[r2c3button].IsX == true && Squares[r3c3button].IsX == true) { MessageBox.Show("X has WON!"); }
+
+                //O winner combos
+                else if (Squares[r1c1button].IsO == true && Squares[r1c2button].IsO == true && Squares[r1c3button].IsO == true) { MessageBox.Show("O has WON!"); }
+                else if (Squares[r2c1button].IsO == true && Squares[r2c2button].IsO == true && Squares[r2c3button].IsO == true) { MessageBox.Show("O has WON!"); }
+                else if (Squares[r3c1button].IsO == true && Squares[r3c2button].IsO == true && Squares[r3c3button].IsO == true) { MessageBox.Show("O has WON!"); }
+                else if (Squares[r1c1button].IsO == true && Squares[r2c1button].IsO == true && Squares[r3c1button].IsO == true) { MessageBox.Show("O has WON!"); }
+                else if (Squares[r1c2button].IsO == true && Squares[r2c2button].IsO == true && Squares[r3c2button].IsO == true) { MessageBox.Show("O has WON!"); }
+                else if (Squares[r1c3button].IsO == true && Squares[r2c3button].IsO == true && Squares[r3c3button].IsO == true) { MessageBox.Show("O has WON!"); }
+                else if (Squares[r1c1button].IsO == true && Squares[r2c2button].IsO == true && Squares[r3c3button].IsO == true) { MessageBox.Show("O has WON!"); }
+                else if (Squares[r3c1button].IsO == true && Squares[r2c2button].IsO == true && Squares[r1c3button].IsO == true) { MessageBox.Show("O has WON!"); }
+                else if (Squares[r1c3button].IsO == true && Squares[r2c3button].IsO == true && Squares[r3c3button].IsO == true) { MessageBox.Show("O has WON!"); }
+
+                //All squares are fill with no winner
+                else if(Squares[r1c1button].IsEmpty == false &&
+                   Squares[r1c2button].IsEmpty == false &&
+                   Squares[r1c3button].IsEmpty == false &&
+                   Squares[r2c1button].IsEmpty == false &&
+                   Squares[r2c2button].IsEmpty == false &&
+                   Squares[r2c3button].IsEmpty == false &&
+                   Squares[r3c1button].IsEmpty == false &&
+                   Squares[r3c2button].IsEmpty == false &&
+                   Squares[r3c3button].IsEmpty == false) { MessageBox.Show("It's a Draw"); }        
+        }
 
         //Exit application
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
