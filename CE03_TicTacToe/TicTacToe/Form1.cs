@@ -32,6 +32,7 @@ namespace TicTacToe
             Squares.Add(r3c3button, SquaresData[8] = new Square());
         }
 
+
         public frmTicTacToe() {
             InitializeComponent();
             InitializeSquares();
@@ -113,6 +114,16 @@ namespace TicTacToe
             Winner();
         }
 
+        //Square buttons
+        private void r1c1button_Click(object sender, EventArgs e) { MarkSelectionMethod(r1c1button); }
+        private void r1c2button_Click(object sender, EventArgs e) { MarkSelectionMethod(r1c2button); }
+        private void r1c3button_Click(object sender, EventArgs e) { MarkSelectionMethod(r1c3button); }
+        private void r2c1button_Click(object sender, EventArgs e) { MarkSelectionMethod(r2c1button); }
+        private void r2c2button_Click(object sender, EventArgs e) { MarkSelectionMethod(r2c2button); }
+        private void r2c3button_Click(object sender, EventArgs e) { MarkSelectionMethod(r2c3button); }
+        private void r3c1button_Click(object sender, EventArgs e) { MarkSelectionMethod(r3c1button); }
+        private void r3c2button_Click(object sender, EventArgs e) { MarkSelectionMethod(r3c2button); }
+        private void r3c3button_Click(object sender, EventArgs e) { MarkSelectionMethod(r3c3button); }
 
         //Switch color to blue
         private void blueToolStripMenuItem_Click(object sender, EventArgs e) {
