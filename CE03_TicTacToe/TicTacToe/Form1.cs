@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+
 
 namespace TicTacToe
 {
@@ -231,10 +228,37 @@ namespace TicTacToe
             r3c3button.BackgroundImage = null;
         }
 
-
         //Start New game button
         private void toolStripButton1_Click(object sender, EventArgs e) {
             NewGame();
+        }
+
+        private void saveGameToolStripMenuItem_Click(object sender, EventArgs e) {
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "xml files (*.xml)|*.xml";
+            if (dlg.ShowDialog() == DialogResult.OK)  {
+
+                XmlWriterSettings settings = new XmlWriterSettings();
+                settings.ConformanceLevel = ConformanceLevel.Document;
+                settings.Indent = true;
+                settings.CloseOutput = true;
+
+                using (XmlWriter writer = XmlWriter.Create(dlg.OpenFile(), settings)) {
+                    writer.WriteStartElement("TicTackToe-8324592348");
+
+                    foreach (var s in Squares)  {
+                        writer.WriteStartElement("square");
+                        writer.WriteElementString("squareName", s.Key.Name);
+                        writer.WriteElementString("isEmpty", s.Value.IsEmpty.ToString());
+                        writer.WriteElementString("isBlue", s.Value.IsBlue.ToString());
+                        writer.WriteElementString("isRed", s.Value.IsRed.ToString());
+                        writer.WriteElementString("isX", s.Value.IsX.ToString());
+                        writer.WriteElementString("isO", s.Value.IsO.ToString());  
+                        writer.WriteEndElement();
+                    }
+                    writer.WriteEndElement();
+                }
+            }
         }
     }
 }
