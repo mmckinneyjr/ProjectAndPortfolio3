@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
-
 
 namespace TicTacToe
 {
@@ -14,8 +12,20 @@ namespace TicTacToe
         // CLASS AND TERM: Project and Portfolio III - C201903
         // PROJECT: Tic Tac Toe
 
-        Dictionary<Button, Square> Squares = new Dictionary<Button, Square>();
+        Dictionary<string, Button> Buttons = new Dictionary<string, Button>();
+        public void InitializeButtons() {
+            Buttons.Add("r1c1button", r1c1button);
+            Buttons.Add("r1c2button", r1c2button);
+            Buttons.Add("r1c3button", r1c3button);
+            Buttons.Add("r2c1button", r2c1button);
+            Buttons.Add("r2c2button", r2c2button);
+            Buttons.Add("r2c3button", r2c3button);
+            Buttons.Add("r3c1button", r3c1button);
+            Buttons.Add("r3c2button", r3c2button);
+            Buttons.Add("r3c3button", r3c3button);
+        }
 
+        Dictionary<Button, Square> Squares = new Dictionary<Button, Square>();
         public void InitializeSquares() {
             Squares.Add(r1c1button, new Square());
             Squares.Add(r1c2button, new Square());
@@ -28,10 +38,10 @@ namespace TicTacToe
             Squares.Add(r3c3button, new Square());
         }
 
-
         public frmTicTacToe() {
             InitializeComponent();
             InitializeSquares();
+            InitializeButtons();
         }
 
 
@@ -137,7 +147,6 @@ namespace TicTacToe
             }
         }
 
-
         //Switch color to red
         private void redToolStripMenuItem_Click(object sender, EventArgs e) {
             blueToolStripMenuItem.Checked = false;
@@ -153,7 +162,6 @@ namespace TicTacToe
                 }
             }
         }
-
 
         //Winner Logic Combinations
         private void Winner() {
@@ -190,15 +198,12 @@ namespace TicTacToe
                    Squares[r3c1button].IsEmpty == false &&
                    Squares[r3c2button].IsEmpty == false &&
                    Squares[r3c3button].IsEmpty == false) { MessageBox.Show("It's a Draw\r\n\r\nClick OK to start a new game"); NewGame(); }
-        
-
         }
 
         //Exit application
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
             Application.Exit();
         }
-
 
         //New Game Fuction
         private void NewGame() {
@@ -233,6 +238,7 @@ namespace TicTacToe
             NewGame();
         }
 
+        //Save game as XML
         private void saveGameToolStripMenuItem_Click(object sender, EventArgs e) {
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.Filter = "xml files (*.xml)|*.xml";
@@ -244,7 +250,17 @@ namespace TicTacToe
                 settings.CloseOutput = true;
 
                 using (XmlWriter writer = XmlWriter.Create(dlg.OpenFile(), settings)) {
-                    writer.WriteStartElement("TicTackToe-8324592348");
+
+                    writer.WriteStartElement("TicTackToe-1984");
+
+                    writer.WriteStartElement("settings");
+                    writer.WriteElementString("isBlue", blueToolStripMenuItem.Checked.ToString());
+                    writer.WriteElementString("isRed", redToolStripMenuItem.Checked.ToString());
+                    writer.WriteElementString("isX", xToolStripMenuItem.Checked.ToString());
+                    writer.WriteElementString("isO", oToolStripMenuItem.Checked.ToString());
+                    writer.WriteElementString("isXEnabled", xToolStripMenuItem.Enabled.ToString());
+                    writer.WriteElementString("isOEnabled", oToolStripMenuItem.Enabled.ToString());
+                    writer.WriteEndElement();
 
                     foreach (var s in Squares)  {
                         writer.WriteStartElement("square");
@@ -257,6 +273,80 @@ namespace TicTacToe
                         writer.WriteEndElement();
                     }
                     writer.WriteEndElement();
+                }
+            }
+        }
+
+        //Load Game as XML
+        private void loadGameToolStripMenuItem_Click(object sender, EventArgs e) {
+            Squares.Clear();
+
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "xml files (*.xml)|*.xml";
+            if (dlg.ShowDialog() == DialogResult.OK) {
+                XmlReaderSettings settings = new XmlReaderSettings();
+                settings.ConformanceLevel = ConformanceLevel.Document;
+                settings.IgnoreComments = true;
+                settings.IgnoreWhitespace = true;
+
+                using (XmlReader reader = XmlReader.Create(dlg.OpenFile(), settings)) {
+                    while (reader.Read()) {
+
+                        XmlDocument xml = new XmlDocument();
+                        xml.Load(reader);
+                        XmlNodeList nodeList;
+                        XmlNode root = xml.DocumentElement;
+
+                        if (root.Name != "TicTackToe-1984") {
+                            MessageBox.Show("Your file is not supported by this application");
+                            return;
+                        }
+
+                        XmlNode nodesettings;
+                        nodesettings = root.SelectSingleNode("settings");
+
+
+                        blueToolStripMenuItem.Checked = bool.Parse(nodesettings.SelectSingleNode("isBlue").InnerText);
+                        redToolStripMenuItem.Checked = bool.Parse(nodesettings.SelectSingleNode("isRed").InnerText);
+                        xToolStripMenuItem.Checked = bool.Parse(nodesettings.SelectSingleNode("isX").InnerText);
+                        oToolStripMenuItem.Checked = bool.Parse(nodesettings.SelectSingleNode("isO").InnerText);
+                        xToolStripMenuItem.Enabled = bool.Parse(nodesettings.SelectSingleNode("isXEnabled").InnerText);
+                        oToolStripMenuItem.Enabled = bool.Parse(nodesettings.SelectSingleNode("isOEnabled").InnerText);
+
+                        nodeList = root.SelectNodes("square");
+                        for (int i = 0; i < nodeList.Count; i++) {
+                            Square s = new Square();
+
+                            s.IsEmpty = bool.Parse(nodeList[i].SelectSingleNode("isEmpty").InnerText);
+                            s.IsBlue = bool.Parse(nodeList[i].SelectSingleNode("isBlue").InnerText);
+                            s.IsRed = bool.Parse(nodeList[i].SelectSingleNode("isRed").InnerText);
+                            s.IsX = bool.Parse(nodeList[i].SelectSingleNode("isX").InnerText);
+                            s.IsO = bool.Parse(nodeList[i].SelectSingleNode("isO").InnerText);
+
+                            Squares.Add(Buttons[(nodeList[i].SelectSingleNode("squareName").InnerText)], s);
+
+                            if (Squares[Buttons[(nodeList[i].SelectSingleNode("squareName").InnerText)]].IsBlue == true &&
+                                Squares[Buttons[(nodeList[i].SelectSingleNode("squareName").InnerText)]].IsX == true) {
+                                    Buttons[(nodeList[i].SelectSingleNode("squareName").InnerText)].BackgroundImage = blueImages.Images[1];
+                            }
+
+                            else if (Squares[Buttons[(nodeList[i].SelectSingleNode("squareName").InnerText)]].IsRed == true &&
+                                     Squares[Buttons[(nodeList[i].SelectSingleNode("squareName").InnerText)]].IsX == true) {
+                                         Buttons[(nodeList[i].SelectSingleNode("squareName").InnerText)].BackgroundImage = redImages.Images[1];
+                            }
+
+                            else if (Squares[Buttons[(nodeList[i].SelectSingleNode("squareName").InnerText)]].IsBlue == true &&
+                                     Squares[Buttons[(nodeList[i].SelectSingleNode("squareName").InnerText)]].IsO == true) {
+                                         Buttons[(nodeList[i].SelectSingleNode("squareName").InnerText)].BackgroundImage = blueImages.Images[0];
+                            }
+
+                            else if (Squares[Buttons[(nodeList[i].SelectSingleNode("squareName").InnerText)]].IsRed == true &&
+                                     Squares[Buttons[(nodeList[i].SelectSingleNode("squareName").InnerText)]].IsO == true ) {
+                                         Buttons[(nodeList[i].SelectSingleNode("squareName").InnerText)].BackgroundImage = redImages.Images[0];
+                            }
+                        }
+
+                    }
                 }
             }
         }
