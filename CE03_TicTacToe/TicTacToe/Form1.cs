@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -7,6 +8,7 @@ namespace TicTacToe
 {
     public partial class frmTicTacToe : Form
     {
+
 
         // NAME: Mark Mckinney
         // CLASS AND TERM: Project and Portfolio III - C201903
@@ -40,6 +42,7 @@ namespace TicTacToe
 
         public frmTicTacToe() {
             InitializeComponent();
+            HandleClientWindowSize();
             InitializeSquares();
             InitializeButtons();
         }
@@ -210,9 +213,7 @@ namespace TicTacToe
             xToolStripMenuItem.Enabled = true;
             oToolStripMenuItem.Enabled = true;
             xToolStripMenuItem.Checked = false;
-            oToolStripMenuItem.Checked = false;
-            blueToolStripMenuItem.Checked = true;
-            redToolStripMenuItem.Checked = false;
+            oToolStripMenuItem.Checked = false;         
 
             foreach (var s in Squares)  {
                 s.Value.IsEmpty = true;
@@ -350,7 +351,27 @@ namespace TicTacToe
                 }
             }
         }
+
+        //Written by Keith Webster.  Used with permission.  Not to be distributed.  
+        //Place this inside the class space in the form you would like to size.
+        //Call this method AFTER InitializeComponent() inside the form's constructor.
+        private void HandleClientWindowSize()
+        {
+            //Modify ONLY these float values
+            float HeightValueToChange = 1.3f;
+            float WidthValueToChange = 6.0f;
+
+            //DO NOT MODIFY THIS CODE
+            int height = Convert.ToInt32(Screen.PrimaryScreen.WorkingArea.Size.Height / HeightValueToChange);
+            int width = Convert.ToInt32(Screen.PrimaryScreen.WorkingArea.Size.Width / WidthValueToChange);
+            if (height < Size.Height)
+                height = Size.Height;
+            if (width < Size.Width)
+                width = Size.Width;
+            this.Size = new Size(width, height);
+            //this.Size = new Size(376, 720);
+        }
     }
-}
+    }
     
 
