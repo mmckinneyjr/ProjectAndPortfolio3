@@ -12,3 +12,18 @@ C:\Users\Mark Mckinney PC\source\repos\FinalProject_v1\FinalProject_v1\obj\Debug
 C:\Users\Mark Mckinney PC\source\repos\FinalProject_v1\FinalProject_v1\obj\Debug\FinalProject_v1.csproj.CopyComplete
 C:\Users\Mark Mckinney PC\source\repos\FinalProject_v1\FinalProject_v1\obj\Debug\FinalProject_v1.exe
 C:\Users\Mark Mckinney PC\source\repos\FinalProject_v1\FinalProject_v1\obj\Debug\FinalProject_v1.pdb
+Z:\Mobile Development\13 Project and Portfolio III\04 Week\FinalProject_v1\FinalProject_v1\bin\Debug\FinalProject_v1.exe.config
+Z:\Mobile Development\13 Project and Portfolio III\04 Week\FinalProject_v1\FinalProject_v1\bin\Debug\FinalProject_v1.exe
+Z:\Mobile Development\13 Project and Portfolio III\04 Week\FinalProject_v1\FinalProject_v1\bin\Debug\FinalProject_v1.pdb
+Z:\Mobile Development\13 Project and Portfolio III\04 Week\FinalProject_v1\FinalProject_v1\bin\Debug\Newtonsoft.Json.dll
+Z:\Mobile Development\13 Project and Portfolio III\04 Week\FinalProject_v1\FinalProject_v1\bin\Debug\Newtonsoft.Json.pdb
+Z:\Mobile Development\13 Project and Portfolio III\04 Week\FinalProject_v1\FinalProject_v1\bin\Debug\Newtonsoft.Json.xml
+Z:\Mobile Development\13 Project and Portfolio III\04 Week\FinalProject_v1\FinalProject_v1\obj\Debug\FinalProject_v1.csprojAssemblyReference.cache
+Z:\Mobile Development\13 Project and Portfolio III\04 Week\FinalProject_v1\FinalProject_v1\obj\Debug\FinalProject_v1.Form1.resources
+Z:\Mobile Development\13 Project and Portfolio III\04 Week\FinalProject_v1\FinalProject_v1\obj\Debug\FinalProject_v1.Properties.Resources.resources
+Z:\Mobile Development\13 Project and Portfolio III\04 Week\FinalProject_v1\FinalProject_v1\obj\Debug\FinalProject_v1.RecipeForm.resources
+Z:\Mobile Development\13 Project and Portfolio III\04 Week\FinalProject_v1\FinalProject_v1\obj\Debug\FinalProject_v1.csproj.GenerateResource.cache
+Z:\Mobile Development\13 Project and Portfolio III\04 Week\FinalProject_v1\FinalProject_v1\obj\Debug\FinalProject_v1.csproj.CoreCompileInputs.cache
+Z:\Mobile Development\13 Project and Portfolio III\04 Week\FinalProject_v1\FinalProject_v1\obj\Debug\FinalProject_v1.csproj.CopyComplete
+Z:\Mobile Development\13 Project and Portfolio III\04 Week\FinalProject_v1\FinalProject_v1\obj\Debug\FinalProject_v1.exe
+Z:\Mobile Development\13 Project and Portfolio III\04 Week\FinalProject_v1\FinalProject_v1\obj\Debug\FinalProject_v1.pdb

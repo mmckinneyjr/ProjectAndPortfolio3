@@ -15,16 +15,15 @@ namespace FinalProject_v1
 {
     public partial class Form1 : Form
     {
-        //List of selected stocks
-        List<Recipe> StockList = new List<Recipe>();
+        RecipeForm recipeForm;
+        Recipe recipe;
 
-        //Variables
+        public EventHandler<CustomEventArgs> sendRecipeId;
+
+        //API Connection & Connection String
         WebClient apiConnection = new WebClient();
         string searchAPI_p1 = "https://www.food2fork.com/api/search?key=f7e2b5345b1b1fe870b0c9e11f5f37d5&q=";
-        string getAPI_p1 = "https://www.food2fork.com/api/get?key=f7e2b5345b1b1fe870b0c9e11f5f37d5&rId=";
-
         string searchAPI_p2;
-        string getAPI_p2;
 
         public Form1() {
             InitializeComponent(); ;
@@ -37,42 +36,23 @@ namespace FinalProject_v1
             searchAPI_p2 = searchAPI_p1 + search;
         }
 
-        //Create Get API string
-        private void GetAPI()  {
-            string get = ((Recipe)listBox1.SelectedItem).RecipeId;
-            getAPI_p2 = getAPI_p1 + get;
-        }
-
         //Pull Data from Search API
         private void ReadSearchData() {
+            listBox1.Items.Clear();
             string apiSearchData = apiConnection.DownloadString(searchAPI_p2);
+            JObject rCount = JObject.Parse(apiSearchData);
 
-            JObject oCount = JObject.Parse(apiSearchData);
-
-            for (int i = 0; i < int.Parse(oCount["count"].ToString()); i++) {
+            for (int i = 0; i < int.Parse(rCount["count"].ToString()); i++) {
                 JObject search = JObject.Parse(apiSearchData);
-                Recipe stock = new Recipe();
+                Recipe r = new Recipe();
 
-                stock.Title = search["recipes"][i]["title"].ToString();
-                stock.RecipeId = search["recipes"][i]["recipe_id"].ToString();
-                stock.ImageLink = search["recipes"][i]["image_url"].ToString();
+                r.Title = search["recipes"][i]["title"].ToString();
+                r.RecipeId = search["recipes"][i]["recipe_id"].ToString();
+                r.ImageLink = search["recipes"][i]["image_url"].ToString();
 
-                listBox1.Items.Add(stock);
+                listBox1.Items.Add(r);
             }
         }
-
-        //Pull Data from Ingredients API
-        private void ReadIngredientsData() {
-
-            Recipe stock = (Recipe)listBox1.SelectedItem;
-            string apiData = apiConnection.DownloadString(getAPI_p2);
-            JObject get = JObject.Parse(apiData);
-
-            foreach (var i in get["recipe"]["ingredients"]) { 
-                listBox2.Items.Add(i);
-            }
-        }
-
 
         //Search Button Click
         private void btn_search_Click(object sender, EventArgs e) {
@@ -81,14 +61,47 @@ namespace FinalProject_v1
         }
 
         private void listBox1_DoubleClick(object sender, EventArgs e)  {
+            recipeForm = new RecipeForm();
+            sendRecipeId += recipeForm.GetRecipeHandler;
+            recipe = new Recipe();
+
             textBox1.Text = ((Recipe)listBox1.SelectedItem).Title;
-            textBox2.Text = ((Recipe)listBox1.SelectedItem).RecipeId;
-            pictureBox1.Load(((Recipe)listBox1.SelectedItem).ImageLink);
+            pictureBox1.Load(((Recipe)listBox1.SelectedItem).ImageLink);  
 
-            GetAPI();
+            if (sendRecipeId != null) {
+                sendRecipeId(this, new CustomEventArgs((Recipe)listBox1.SelectedItem));
+            }
 
-            ReadIngredientsData();  
+            recipeForm.Show();
+         
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         //Written by Keith Webster. Used with permission. Not to be distributed.
@@ -111,6 +124,13 @@ namespace FinalProject_v1
             this.Size = new Size(width, height);
         }
 
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
 
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btn_search_Click(this, new EventArgs());
+            }
+        }
     }
 }
