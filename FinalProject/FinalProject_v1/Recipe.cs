@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
+
 namespace FinalProject_v1
 {
     public class Recipe
@@ -14,39 +17,57 @@ namespace FinalProject_v1
         string sourceLink;
         List<string> ingredients;
         string ingred;
+        bool viewSettings;
 
-        public string Title {
+        public string Title
+        {
             get { return title; }
             set { title = value; }
         }
 
-        public string RecipeId {
+        public string RecipeId
+        {
             get { return recipeId; }
             set { recipeId = value; }
         }
 
-        public string ImageLink  {
+        public string ImageLink
+        {
             get { return imageLink; }
             set { imageLink = value; }
         }
 
-        public string SourceLink  {
+        public string SourceLink
+        {
             get { return sourceLink; }
             set { sourceLink = value; }
         }
 
-        public List<string> Ingredients  {
+        public List<string> Ingredients
+        {
             get { return ingredients; }
             set { ingredients = value; }
         }
 
-        public string Ingred {
+        public string Ingred
+        {
             get { return ingred; }
             set { ingred = value; }
         }
 
-        public override string ToString() {
+        public bool ViewSettings
+        {
+            get { return viewSettings; }
+            set { viewSettings = value; }
+        }
+
+        public override string ToString()
+        {
             return title;
         }
+
+
+
+
     }
 }

@@ -113,6 +113,16 @@ namespace FinalProject_v1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap iPhoneXImage_H {
+            get {
+                object obj = ResourceManager.GetObject("iPhoneXImage_H", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap iPhoneXImage_myCookbookH {
             get {
                 object obj = ResourceManager.GetObject("iPhoneXImage_myCookbookH", resourceCulture);

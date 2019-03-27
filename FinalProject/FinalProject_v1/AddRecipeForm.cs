@@ -19,41 +19,25 @@ namespace FinalProject_v1
     {
 
 
-        public void newSettings(object sender, CustomSettings e) {
-            settings.RotateSetting = e.rotateSetting.RotateSetting;
-        }
+        public EventHandler<CustomEventArgs> UpdateMain;
+        public EventHandler previousScreen;
+        public EventHandler previousScreenHome;
+
+        Buttons buttons = new Buttons();
+        public bool rotateView;
+
 
         //Database Connection
         MySqlConnection conn = new MySqlConnection();
         DataTable contactsDataTable = new DataTable();
         string connectionString = DatabaseConnect.BuildConnectionString();
 
-        Settings settings = new Settings();
-
-        public void startSettings() {
-            if (settings.RotateSetting == false)
-            {
-                HorizontalView();
-            }
-            else if (settings.RotateSetting == true)
-            {
-                VerticalView();
-            }
-        }
-
-
         public AddRecipeForm()
         {
             InitializeComponent();
             HandleClientWindowSize();
             conn = DatabaseConnect.Connect(connectionString);
-            startSettings();
-
         }
-
-
-
-
 
 
         //Written by Keith Webster. Used with permission. Not to be distributed.
@@ -61,7 +45,6 @@ namespace FinalProject_v1
         //Call this method AFTER InitializeComponent() inside the form's constructor.
         void HandleClientWindowSize()
         {
-
             StartPosition = FormStartPosition.Manual;
             this.Left = 600;
             this.Top = 100;
@@ -80,52 +63,112 @@ namespace FinalProject_v1
                 width = Size.Width;
             this.Size = new Size(width, height);
 
+            buttons.ButtonsTrans(btn_myRecipes);
+            buttons.ButtonsTrans(btn_home);
+            buttons.ButtonsTrans(btn_back);
 
 
         }
 
-
         //Vertical
-        private void VerticalView() {
+        private void VerticalView()
+        {
             Size = new Size(353, 702);
             BackgroundImage = Properties.Resources.FinalBackground_newRecipe;
             menuStrip1.Size = new Size(25, 24);
             menuStrip1.Location = new Point(40, 47);
+            btn_search.Size = new Size(256, 32);
+            btn_search.Location = new Point(42, 541);
+            label1.Location = new Point(42, 181);
+            txtBox_title.Location = new Point(44, 196);
+            label2.Location = new Point(42, 231);
+            txtBox_ingredients.Location = new Point(44, 246);
+            label3.Location = new Point(42, 279);
+            txtBox_directions.Location = new Point(44, 295);
+            label4.Location = new Point(42, 331);
+            txtBox_imageUrl.Location = new Point(44, 345);
+            label5.Location = new Point(42, 381);
+            txtBox_sourceUrl.Location = new Point(44, 395);
+            btn_back.Location = new Point(243, 54);
+            label6.Location = new Point(102, 234);
+            label7.Location = new Point(104, 383);
 
-            settings.RotateSetting = false;
+            btn_home.Location = new Point(28, 599);
+            btn_myRecipes.Location = new Point(221, 599);
+
+            rotateView = false;
+
 
         }
 
         //Horizontal
-        private void HorizontalView() {
+        private void HorizontalView()
+        {
             Size = new Size(702, 353);
             BackgroundImage = Properties.Resources.FinalBackground_newRecipeH;
 
             menuStrip1.Size = new Size(25, 24);
             menuStrip1.Location = new Point(40, 35);
+            btn_search.Location = new Point(45, 205);
 
-            settings.RotateSetting = true;
+            label1.Location = new Point(372, 40);
+            txtBox_title.Location = new Point(374, 55);
+            label2.Location = new Point(372, 80);
+            txtBox_ingredients.Location = new Point(374, 95);
+            label3.Location = new Point(372, 120);
+            txtBox_directions.Location = new Point(374, 135);
+            label4.Location = new Point(372, 160);
+            txtBox_imageUrl.Location = new Point(374, 175);
+            label5.Location = new Point(372, 200);
+            txtBox_sourceUrl.Location = new Point(374, 215);
+            btn_back.Location = new Point(255, 35);
+            label6.Location = new Point(432, 83);
+            label7.Location = new Point(440, 203);
+
+            btn_home.Location = new Point(200, 255);
+            btn_myRecipes.Location = new Point(400, 255);
+
+            rotateView = true;
 
         }
 
-        private void rotateToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (settings.RotateSetting == false)  {
+        //Rotate view button
+        private void rotateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (rotateView == false)
+            {
                 HorizontalView();
             }
-            else if (settings.RotateSetting == true) {
+            else if (rotateView == true)
+            {
                 VerticalView();
+            }
+
+            if (UpdateMain != null)
+            {
+                Recipe rec = new Recipe();
+                rec.ViewSettings = rotateView;
+                UpdateMain(this, new CustomEventArgs(rec));
             }
         }
 
-        private void button2_Click(object sender, EventArgs e) {
+        //Home Button
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (previousScreenHome != null)
+            {
+                previousScreenHome(this, new EventArgs());
+            }
             Close();
         }
 
+        //Cancel Button
         private void btn_back_Click(object sender, EventArgs e)
         {
             Close();
         }
 
+        //Check for new recipeID 
         private void btn_search_Click(object sender, EventArgs e)
         {
             string sql = "INSERT INTO Recipes (recipeId, title, ingredients, imageUrl, sourceUrl, directions) VALUES(@ID, @title, @ingredients, @imageurl, @sourceURL, @directions);";
@@ -145,8 +188,6 @@ namespace FinalProject_v1
 
             MessageBox.Show("Your Recipe Has Been Added");
         }
-
-
 
         //Random Recipe Id generator
         public string IdGenerator(MySqlDataReader r)
@@ -186,16 +227,33 @@ namespace FinalProject_v1
                 }
             }
 
-
-
             r.Close();
             return valID + "c";
         }
 
 
-       
+        //Load form
+        private void AddRecipeForm_Load_1(object sender, EventArgs e)
+        {
+            if (rotateView == true)
+            {
+                HorizontalView();
+            }
+            else if (rotateView == false)
+            {
+                VerticalView();
+            }
+        }
 
- 
+        private void btn_myRecipes_Click(object sender, EventArgs e)
+        {
+            if (previousScreen != null)
+            {
+                previousScreen(this, new EventArgs());
+            }
+            Close();
+
+        }
     }
-    }
+}
 

@@ -31,9 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RecipeForm));
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.pictureBox_recipeImage = new System.Windows.Forms.PictureBox();
-            this.txtBox_title = new System.Windows.Forms.TextBox();
             this.btn_back = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btn_home = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_add = new System.Windows.Forms.Button();
             this.label_title = new System.Windows.Forms.Label();
@@ -44,7 +43,7 @@
             this.rotateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_new = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_recipeImage)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -52,32 +51,23 @@
             // listBox2
             // 
             this.listBox2.BackColor = System.Drawing.Color.White;
-            this.listBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listBox2.FormattingEnabled = true;
             this.listBox2.ItemHeight = 25;
             this.listBox2.Location = new System.Drawing.Point(94, 644);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(486, 350);
+            this.listBox2.Size = new System.Drawing.Size(486, 329);
             this.listBox2.TabIndex = 8;
             // 
             // pictureBox_recipeImage
             // 
             this.pictureBox_recipeImage.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_recipeImage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox_recipeImage.Location = new System.Drawing.Point(94, 312);
             this.pictureBox_recipeImage.Name = "pictureBox_recipeImage";
             this.pictureBox_recipeImage.Size = new System.Drawing.Size(503, 263);
             this.pictureBox_recipeImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox_recipeImage.TabIndex = 9;
             this.pictureBox_recipeImage.TabStop = false;
-            // 
-            // txtBox_title
-            // 
-            this.txtBox_title.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtBox_title.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBox_title.Location = new System.Drawing.Point(94, 211);
-            this.txtBox_title.Name = "txtBox_title";
-            this.txtBox_title.Size = new System.Drawing.Size(503, 31);
-            this.txtBox_title.TabIndex = 10;
             // 
             // btn_back
             // 
@@ -90,15 +80,15 @@
             this.btn_back.UseVisualStyleBackColor = false;
             this.btn_back.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // btn_home
             // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.Location = new System.Drawing.Point(50, 1150);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(189, 91);
-            this.button2.TabIndex = 12;
-            this.button2.Text = "Home";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btn_home.BackColor = System.Drawing.Color.Transparent;
+            this.btn_home.Location = new System.Drawing.Point(50, 1150);
+            this.btn_home.Name = "btn_home";
+            this.btn_home.Size = new System.Drawing.Size(189, 91);
+            this.btn_home.TabIndex = 12;
+            this.btn_home.Text = "Home";
+            this.btn_home.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
@@ -188,6 +178,7 @@
             this.rotateToolStripMenuItem.Name = "rotateToolStripMenuItem";
             this.rotateToolStripMenuItem.Size = new System.Drawing.Size(182, 38);
             this.rotateToolStripMenuItem.Text = "Rotate";
+            this.rotateToolStripMenuItem.Click += new System.EventHandler(this.rotateToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -200,40 +191,40 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(182, 38);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
-            // button1
+            // btn_new
             // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.Location = new System.Drawing.Point(245, 1150);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(189, 91);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "New";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.btn_new.BackColor = System.Drawing.Color.Transparent;
+            this.btn_new.Location = new System.Drawing.Point(245, 1150);
+            this.btn_new.Name = "btn_new";
+            this.btn_new.Size = new System.Drawing.Size(189, 91);
+            this.btn_new.TabIndex = 20;
+            this.btn_new.Text = "New";
+            this.btn_new.UseVisualStyleBackColor = false;
+            this.btn_new.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // RecipeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::FinalProject_v1.Properties.Resources.FinalBackgroundAdd;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(674, 1340);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.label_source);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label_title);
+            this.Controls.Add(this.label_source);
+            this.Controls.Add(this.btn_new);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.btn_add);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btn_home);
             this.Controls.Add(this.btn_back);
-            this.Controls.Add(this.txtBox_title);
             this.Controls.Add(this.pictureBox_recipeImage);
             this.Controls.Add(this.listBox2);
+            this.Controls.Add(this.label_title);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "RecipeForm";
             this.Text = "RecipeForm";
+            this.Load += new System.EventHandler(this.RecipeForm_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_recipeImage)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -246,9 +237,8 @@
 
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.PictureBox pictureBox_recipeImage;
-        private System.Windows.Forms.TextBox txtBox_title;
         private System.Windows.Forms.Button btn_back;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn_home;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_add;
         private System.Windows.Forms.Label label_title;
@@ -259,6 +249,6 @@
         private System.Windows.Forms.ToolStripMenuItem rotateToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_new;
     }
 }

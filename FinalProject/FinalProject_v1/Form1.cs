@@ -1,43 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 using System.Net;
 using MySql.Data.MySqlClient;
-using System.IO;
+using System.Linq;
+
 
 
 namespace FinalProject_v1
 {
     public partial class Form1 : Form
     {
-        RecipeForm recipeForm;
+
+        //Local Variables
         Recipe recipe;
-        Settings settings = new Settings();
-
+        Buttons buttons = new Buttons();
+        public EventHandler<CustomEventArgs> sendRecipeId;
         string selectedListBoxDisplay = "search";
-
         int screenSelection = 0;
 
-        public EventHandler<CustomEventArgs> sendRecipeId;
-
-        public EventHandler<CustomSettings> sendSettings;
-
-
-
+        public bool rotateView = false;
 
         //Database Connection
         MySqlConnection conn = new MySqlConnection();
         DataTable favoritesDataTable = new DataTable();
         string connectionString = DatabaseConnect.BuildConnectionString();
-
 
         //API Connection & Connection String
         WebClient apiConnection = new WebClient();
@@ -50,8 +39,6 @@ namespace FinalProject_v1
             conn = DatabaseConnect.Connect(connectionString);
             //RetrieveData();
         }
-
-
 
         //Create Search API string
         private void SearchAPI() {
@@ -94,15 +81,9 @@ namespace FinalProject_v1
             ReadSearchData();
         }
 
-
-
         //Open a search recipe item
-        private void listBox1_DoubleClick(object sender, EventArgs e)  {
-
-            
-
-            if (selectedListBoxDisplay == "search") {
-                recipeForm = new RecipeForm();
+        private void listBox1_DoubleClick(object sender, EventArgs e)  {       
+                RecipeForm recipeForm = new RecipeForm();
                 sendRecipeId += recipeForm.GetRecipeHandler;
                 recipe = new Recipe();
 
@@ -111,33 +92,43 @@ namespace FinalProject_v1
                 if (sendRecipeId != null) {
                     sendRecipeId(this, new CustomEventArgs((Recipe)listBox1.SelectedItem));
                 }
-
+                recipeForm.rotateView = rotateView;
+                recipeForm.UpdateMain += rotateToolStripMenuItem_Click;
                 recipeForm.ShowDialog();
-            }
-
-            else if (selectedListBoxDisplay == "myRecipes") {
-
-            }      
         }
 
+        //Open a my recipe item
+        private void listBox2_DoubleClick(object sender, EventArgs e) {
+            RecipeForm recipeForm = new RecipeForm();
+            sendRecipeId += recipeForm.MyRecipeHandler;
+            recipe = new Recipe();
 
+            if (sendRecipeId != null)  {
+                recipe.Title = ((Recipe)listBox2.SelectedItem).Title;
+                recipe.Ingredients = ((Recipe)listBox2.SelectedItem).Ingred.Split(',').ToList();
+                recipe.ImageLink = ((Recipe)listBox2.SelectedItem).ImageLink;
+                recipe.SourceLink = ((Recipe)listBox2.SelectedItem).SourceLink;
+                sendRecipeId(this, new CustomEventArgs(recipe));
 
+            }
+            recipeForm.rotateView = rotateView;
+            recipeForm.UpdateMain += rotateToolStripMenuItem_Click;
+            recipeForm.ShowDialog();
+        }
 
-
-
-
-        //Vertical
+        //Vertical view
         private void VerticalView() {
             Size = new Size(353, 702);
             if (screenSelection == 0) { BackgroundImage = Properties.Resources.FinalBackground; }
+
             else if (screenSelection == 1) { BackgroundImage = Properties.Resources.FinalBackground_newRecipe; }
             else if (screenSelection == 2) { BackgroundImage = Properties.Resources.FinalBackground_myCookbook; }
 
             textBox1.Location = new Point(72, 107);
             btn_search.Size = new Size(256, 32);
-            btn_search.Location = new Point(42 ,541);
+            btn_search.Location = new Point(42, 541);
             listBox1.Size = new Size(258, 355);
-            listBox1.Location = new Point(42,166);
+            listBox1.Location = new Point(42, 166);
             listBox2.Size = new Size(258, 355);
             listBox2.Location = new Point(42, 166);
             menuStrip1.Size = new Size(25, 24);
@@ -150,17 +141,17 @@ namespace FinalProject_v1
             btn_clear.Location = new Point(266, 100);
             label_noResults.Location = new Point(88, 297);
 
-            settings.RotateSetting = false;
+            rotateView = false;
         }
 
-        //Horizontal
-        private void HorizontalView() {
+        //Horizontal view
+        private void HorizontalView()  {
             Size = new Size(702, 353);
             if (screenSelection == 0) { BackgroundImage = Properties.Resources.iPhoneXImageH; }
             else if (screenSelection == 1) { BackgroundImage = Properties.Resources.FinalBackground_newRecipeH; }
             else if (screenSelection == 2) { BackgroundImage = Properties.Resources.iPhoneXImage_myCookbookH; }
 
-            textBox1.Location = new Point(70,85);
+            textBox1.Location = new Point(70, 85);
             btn_search.Location = new Point(45, 205);
             listBox1.Location = new Point(345, 40);
             listBox1.Size = new Size(290, 200);
@@ -169,41 +160,20 @@ namespace FinalProject_v1
             menuStrip1.Size = new Size(25, 24);
             menuStrip1.Location = new Point(40, 35);
 
-            btn_Home.Location = new Point(200,255);
+            btn_Home.Location = new Point(200, 255);
             btn_newRecipe.Location = new Point(300, 255);
             btn_myRecipes.Location = new Point(400, 255);
 
             btn_clear.Location = new Point(270, 78);
             label_noResults.Location = new Point(415, 100);
 
-
-
-
-
-            settings.RotateSetting = true;
+            rotateView = true;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //Written by Keith Webster. Used with permission. Not to be distributed.
         //Place this inside the class space in the form you would like to size.
         //Call this method AFTER InitializeComponent() inside the form's constructor.
-        void HandleClientWindowSize()
-        {
+        void HandleClientWindowSize() {
             StartPosition = FormStartPosition.Manual;
             this.Left = 600;
             this.Top = 100;
@@ -222,42 +192,35 @@ namespace FinalProject_v1
                 width = Size.Width;
             this.Size = new Size(width, height);
 
-            
-
-          //  textBox2.Text = btn_clear.Location.X.ToString() + ", " + btn_Home.Location.Y.ToString();
-            textBox3.Text = label_noResults.Location.X.ToString() + ", " + label_noResults.Location.Y.ToString();
-
-
+            buttons.ButtonsTrans(btn_clear);
+            buttons.ButtonsTrans(btn_Home);
+            buttons.ButtonsTrans(btn_newRecipe);
+            buttons.ButtonsTrans(btn_myRecipes);
         }
 
 
-
-
-
         //Rotate screen button
-        private void rotateToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (settings.RotateSetting == false)  {
+        private void rotateToolStripMenuItem_Click(object sender, EventArgs e)  {
+            if (rotateView == false) {
                 HorizontalView();
             }
-            else if (settings.RotateSetting == true)  {
+            else if (rotateView == true)  {
                 VerticalView();
             }
         }
 
 
-  
+
 
 
         //New recipe Button
-        private void button2_Click(object sender, EventArgs e) {
+        private void button2_Click(object sender, EventArgs e)  {
             screenSelection = 1;
             AddRecipeForm newRecipe = new AddRecipeForm();
-
-            sendSettings += newRecipe.newSettings;
-            if (sendSettings != null)  {
-                sendSettings(this,  new CustomSettings(settings));
-            }
-
+            newRecipe.rotateView = rotateView;
+            newRecipe.UpdateMain += rotateToolStripMenuItem_Click;
+            newRecipe.previousScreen += btn_myRecipes_Click;
+            newRecipe.previousScreenHome += button1_Click;
             newRecipe.ShowDialog();
         }
 
@@ -265,8 +228,8 @@ namespace FinalProject_v1
         private void btn_myRecipes_Click(object sender, EventArgs e) {
             screenSelection = 2;
 
-            if (settings.RotateSetting == false) { BackgroundImage = Properties.Resources.FinalBackground_myCookbook; }
-            else if (settings.RotateSetting == true) { BackgroundImage = Properties.Resources.iPhoneXImage_myCookbookH; }
+            if (rotateView == false) { BackgroundImage = Properties.Resources.FinalBackground_myCookbook; }
+            else if (rotateView == true) { BackgroundImage = Properties.Resources.iPhoneXImage_myCookbookH; }
             btn_clear.Visible = false;
             textBox1.Visible = false;
             btn_search.Visible = false;
@@ -287,7 +250,7 @@ namespace FinalProject_v1
 
             Recipe r = new Recipe();
 
-            for (int i = 0; i < favoritesDataTable.Select().Length; i++)  {
+            for (int i = 0; i < favoritesDataTable.Select().Length; i++) {
                 r.RecipeId = favoritesDataTable.Rows[i]["recipeId"].ToString();
                 r.Title = favoritesDataTable.Rows[i]["title"].ToString();
                 r.Ingred = favoritesDataTable.Rows[i]["ingredients"].ToString();
@@ -304,8 +267,8 @@ namespace FinalProject_v1
         private void button1_Click(object sender, EventArgs e) {
             screenSelection = 0;
 
-            if (settings.RotateSetting == false) { BackgroundImage = Properties.Resources.FinalBackground;  }
-            else if (settings.RotateSetting == true) { BackgroundImage = Properties.Resources.iPhoneXImageH; }
+            if (rotateView == false) { BackgroundImage = Properties.Resources.FinalBackground; }
+            else if (rotateView == true) { BackgroundImage = Properties.Resources.iPhoneXImageH; }
             textBox1.Visible = true;
             btn_clear.Visible = true;
             btn_search.Visible = true;
@@ -319,5 +282,21 @@ namespace FinalProject_v1
             textBox1.Text = "";
             listBox1.Items.Clear();
         }
+
+        private void Form1_Load(object sender, EventArgs e)  {
+            if (rotateView == true)  {
+                HorizontalView();
+            }
+            else if (rotateView == false) {
+                VerticalView();
+            }
+        }
+
+        //Exit application
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
+            Application.Exit();
+        }
+
+       
     }
 }

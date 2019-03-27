@@ -48,8 +48,8 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_back = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_home = new System.Windows.Forms.Button();
+            this.btn_myRecipes = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -205,19 +205,19 @@
             // rotateToolStripMenuItem
             // 
             this.rotateToolStripMenuItem.Name = "rotateToolStripMenuItem";
-            this.rotateToolStripMenuItem.Size = new System.Drawing.Size(182, 38);
+            this.rotateToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
             this.rotateToolStripMenuItem.Text = "Rotate";
             this.rotateToolStripMenuItem.Click += new System.EventHandler(this.rotateToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(179, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(321, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(182, 38);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // btn_back
@@ -231,26 +231,27 @@
             this.btn_back.UseVisualStyleBackColor = false;
             this.btn_back.Click += new System.EventHandler(this.btn_back_Click);
             // 
-            // button2
+            // btn_home
             // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.Location = new System.Drawing.Point(52, 1159);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(189, 91);
-            this.button2.TabIndex = 20;
-            this.button2.Text = "New";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btn_home.BackColor = System.Drawing.Color.Transparent;
+            this.btn_home.Location = new System.Drawing.Point(52, 1159);
+            this.btn_home.Name = "btn_home";
+            this.btn_home.Size = new System.Drawing.Size(189, 91);
+            this.btn_home.TabIndex = 20;
+            this.btn_home.Text = "New";
+            this.btn_home.UseVisualStyleBackColor = false;
+            this.btn_home.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button1
+            // btn_myRecipes
             // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.Location = new System.Drawing.Point(449, 1159);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(189, 91);
-            this.button1.TabIndex = 21;
-            this.button1.Text = "My Recipes";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btn_myRecipes.BackColor = System.Drawing.Color.Transparent;
+            this.btn_myRecipes.Location = new System.Drawing.Point(449, 1159);
+            this.btn_myRecipes.Name = "btn_myRecipes";
+            this.btn_myRecipes.Size = new System.Drawing.Size(189, 91);
+            this.btn_myRecipes.TabIndex = 21;
+            this.btn_myRecipes.Text = "My Recipes";
+            this.btn_myRecipes.UseVisualStyleBackColor = false;
+            this.btn_myRecipes.Click += new System.EventHandler(this.btn_myRecipes_Click);
             // 
             // AddRecipeForm
             // 
@@ -259,8 +260,8 @@
             this.BackgroundImage = global::FinalProject_v1.Properties.Resources.FinalBackgroundAdd;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(674, 1340);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btn_myRecipes);
+            this.Controls.Add(this.btn_home);
             this.Controls.Add(this.btn_back);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.btn_search);
@@ -280,6 +281,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "AddRecipeForm";
             this.Text = "AddRecipeForm";
+            this.Load += new System.EventHandler(this.AddRecipeForm_Load_1);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -308,7 +310,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Button btn_back;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_home;
+        private System.Windows.Forms.Button btn_myRecipes;
     }
 }

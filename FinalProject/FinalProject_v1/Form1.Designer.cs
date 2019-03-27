@@ -33,8 +33,6 @@ namespace FinalProject_v1
             this.btn_search = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rotateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,7 +69,7 @@ namespace FinalProject_v1
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(381, 24);
             this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "sdjfhkfhksdhfksdhfksj";
+            this.textBox1.Text = "Search";
             // 
             // listBox1
             // 
@@ -82,20 +80,6 @@ namespace FinalProject_v1
             this.listBox1.Size = new System.Drawing.Size(512, 679);
             this.listBox1.TabIndex = 5;
             this.listBox1.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(442, 89);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(178, 31);
-            this.textBox2.TabIndex = 7;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(442, 52);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(178, 31);
-            this.textBox3.TabIndex = 8;
             // 
             // menuStrip1
             // 
@@ -142,6 +126,7 @@ namespace FinalProject_v1
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(182, 38);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // btn_newRecipe
             // 
@@ -150,7 +135,6 @@ namespace FinalProject_v1
             this.btn_newRecipe.Name = "btn_newRecipe";
             this.btn_newRecipe.Size = new System.Drawing.Size(189, 91);
             this.btn_newRecipe.TabIndex = 13;
-            this.btn_newRecipe.Text = "New";
             this.btn_newRecipe.UseVisualStyleBackColor = false;
             this.btn_newRecipe.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -161,7 +145,6 @@ namespace FinalProject_v1
             this.btn_myRecipes.Name = "btn_myRecipes";
             this.btn_myRecipes.Size = new System.Drawing.Size(189, 91);
             this.btn_myRecipes.TabIndex = 14;
-            this.btn_myRecipes.Text = "My Recipes";
             this.btn_myRecipes.UseVisualStyleBackColor = false;
             this.btn_myRecipes.Click += new System.EventHandler(this.btn_myRecipes_Click);
             // 
@@ -172,18 +155,17 @@ namespace FinalProject_v1
             this.btn_Home.Name = "btn_Home";
             this.btn_Home.Size = new System.Drawing.Size(189, 91);
             this.btn_Home.TabIndex = 15;
-            this.btn_Home.Text = "Home";
             this.btn_Home.UseVisualStyleBackColor = false;
             this.btn_Home.Click += new System.EventHandler(this.button1_Click);
             // 
             // btn_clear
             // 
+            this.btn_clear.BackColor = System.Drawing.Color.Transparent;
             this.btn_clear.Location = new System.Drawing.Point(532, 192);
             this.btn_clear.Name = "btn_clear";
             this.btn_clear.Size = new System.Drawing.Size(65, 49);
             this.btn_clear.TabIndex = 16;
-            this.btn_clear.Text = "button2";
-            this.btn_clear.UseVisualStyleBackColor = true;
+            this.btn_clear.UseVisualStyleBackColor = false;
             this.btn_clear.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // label_noResults
@@ -203,6 +185,7 @@ namespace FinalProject_v1
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(512, 679);
             this.listBox2.TabIndex = 19;
+            this.listBox2.DoubleClick += new System.EventHandler(this.listBox2_DoubleClick);
             // 
             // Form1
             // 
@@ -213,23 +196,22 @@ namespace FinalProject_v1
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(674, 1340);
             this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.label_noResults);
             this.Controls.Add(this.btn_clear);
             this.Controls.Add(this.btn_Home);
             this.Controls.Add(this.btn_myRecipes);
             this.Controls.Add(this.btn_newRecipe);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btn_search);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.label_noResults);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Location = new System.Drawing.Point(50, 50);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -241,8 +223,6 @@ namespace FinalProject_v1
         private System.Windows.Forms.Button btn_search;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rotateToolStripMenuItem;

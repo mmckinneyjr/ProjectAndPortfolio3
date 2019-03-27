@@ -17,10 +17,13 @@ namespace FinalProject_v1
 {
     public partial class RecipeForm : Form
     {
+
+
+        public EventHandler<CustomEventArgs> UpdateMain;
         Recipe rec;
-        Settings settings = new Settings();
 
-
+        Buttons buttons = new Buttons();
+        public bool rotateView;
 
 
         //Database Connection
@@ -29,7 +32,8 @@ namespace FinalProject_v1
         string connectionString = DatabaseConnect.BuildConnectionString();
 
 
-        public RecipeForm() {
+        public RecipeForm()
+        {
             InitializeComponent();
             HandleClientWindowSize();
             conn = DatabaseConnect.Connect(connectionString);
@@ -37,24 +41,18 @@ namespace FinalProject_v1
 
         //SQL to write data to database
         private void SaveToCookBook() {
-
             string sql = "INSERT INTO Recipes(recipeId, title, ingredients, imageUrl, sourceUrl) VALUES(@_recipeId, @_title, @_ingredients, @_imageUrl, @_sourceUrl);";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader rdr = null;
 
             cmd.Parameters.AddWithValue("@_recipeId", rec.RecipeId);
             cmd.Parameters.AddWithValue("@_title", rec.Title);
-
-
             cmd.Parameters.AddWithValue("@_ingredients", String.Join(", ", rec.Ingredients.ToArray()));
             cmd.Parameters.AddWithValue("@_imageUrl", rec.ImageLink);
             cmd.Parameters.AddWithValue("@_sourceUrl", rec.SourceLink);
-
-
             rdr = cmd.ExecuteReader();
             conn.Close();
         }
-
 
         //API connection
         WebClient apiConnection = new WebClient();
@@ -66,8 +64,6 @@ namespace FinalProject_v1
             string get = rec.RecipeId;
             getAPI_p2 = getAPI_p1 + get;
         }
-
-
 
         //Pull Data from Ingredients API
         private void ReadIngredientsData() {
@@ -86,8 +82,21 @@ namespace FinalProject_v1
             rec.Ingred = get["recipe"]["ingredients"].ToString();
         }
 
-        //Get Recipe Handler
-        public void GetRecipeHandler(object sender, CustomEventArgs e) {
+        //Get myrecipe book item
+            public void MyRecipeHandler(object sender, CustomEventArgs e) {
+            rec = new Recipe();
+            rec.RecipeId = e.sendRecipe.RecipeId;
+            label_title.Text = e.sendRecipe.Title;
+            foreach (var i in e.sendRecipe.Ingredients) {
+                listBox2.Items.Add(i);
+            }
+            pictureBox_recipeImage.Load(e.sendRecipe.ImageLink);
+            label_source.Text = e.sendRecipe.SourceLink;
+            }
+
+
+            //Get Recipe Handler
+            public void GetRecipeHandler(object sender, CustomEventArgs e) {
             rec = new Recipe();
             rec.RecipeId = e.sendRecipe.RecipeId;
             rec.Title = e.sendRecipe.Title;
@@ -99,23 +108,57 @@ namespace FinalProject_v1
             ReadIngredientsData();
         }
 
-    
+        //Vertical
+        private void VerticalView() {
+            Size = new Size(353, 702);
+            BackgroundImage = Properties.Resources.FinalBackgroundAdd;
+            menuStrip1.Size = new Size(25, 24);
+            menuStrip1.Location = new Point(40, 47);
+            btn_new.Location = new Point(126, 599);
+            btn_home.Location = new Point(28, 599);
+            label1.Location = new Point(44, 311);
+            listBox2.Location = new Point(47, 335);
+            label2.Location = new Point(48,524);
+            btn_back.Location = new Point(243, 54);
+            pictureBox_recipeImage.Location = new Point(47, 162);
+            label_source.Location = new Point(90, 524);
+            label_title.Location = new Point(47, 100);
+            pictureBox_recipeImage.Location = new Point(47, 162);
+            rotateView = false;
+        }
+
+        //Horizontal
+        private void HorizontalView() {
+            Size = new Size(702, 353);
+            BackgroundImage = Properties.Resources.iPhoneXImage_H;
+            menuStrip1.Size = new Size(25, 24);
+            menuStrip1.Location = new Point(40, 35);
+
+            btn_home.Location = new Point(200, 255);
+            btn_new.Location = new Point(300, 255);
 
 
+            label1.Location = new Point(370, 30);
+            listBox2.Location = new Point(370, 55);
+            //label2.Location = new Point(48, 524);
+            btn_back.Location = new Point(255, 35);
+            pictureBox_recipeImage.Location = new Point(47,115);
+            label2.Location = new Point(370, 228);
+            label_source.Location = new Point(410,228);
+            label_title.Location = new Point(47, 75);
 
 
+            label_title.FlatStyle = FlatStyle.Flat;
+        
 
 
+            rotateView = true;
+        }
 
-
-
-
-            //Written by Keith Webster. Used with permission. Not to be distributed.
-            //Place this inside the class space in the form you would like to size.
-            //Call this method AFTER InitializeComponent() inside the form's constructor.
-            void HandleClientWindowSize()
-        {
-
+        //Written by Keith Webster. Used with permission. Not to be distributed.
+        //Place this inside the class space in the form you would like to size.
+        //Call this method AFTER InitializeComponent() inside the form's constructor.
+        void HandleClientWindowSize()  {
             StartPosition = FormStartPosition.Manual;
             this.Left = 600;
             this.Top = 100;
@@ -134,52 +177,66 @@ namespace FinalProject_v1
                 width = Size.Width;
             this.Size = new Size(width, height);
 
-            btn_back.FlatStyle = FlatStyle.Flat;
-            btn_back.FlatAppearance.BorderSize = 0;
-            btn_back.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btn_back.FlatAppearance.MouseDownBackColor = Color.Transparent;
-
+            buttons.ButtonsTrans(btn_back);
 
         }
 
-        private void button1_Click(object sender, EventArgs e)  {
+        //Back Button
+        private void button1_Click(object sender, EventArgs e) {
             Close();
         }
 
-        private void btn_search_Click(object sender, EventArgs e) {
+        //Save to favorites button
+        private void btn_search_Click(object sender, EventArgs e)  {
             SaveToCookBook();
         }
 
 
+        //Add New Recipe Form
+        private void button1_Click_1(object sender, EventArgs e) {
+            AddRecipeForm newRecipe = new AddRecipeForm();
+            newRecipe.rotateView = rotateView;
+            newRecipe.ShowDialog();
+            
+            Close();
 
-
-        //Vertical
-        private void VerticalView() {
-            menuStrip1.Size = new Size(25, 24);
-            menuStrip1.Location = new Point(40, 47);
         }
 
-        //Horizontal
-        private void HorizontalView() {
-            menuStrip1.Size = new Size(25, 24);
-            menuStrip1.Location = new Point(40, 35);
-        }
 
-        private void rotateToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (settings.RotateSetting == false)
-            {
+        //Rotate Buttong
+        private void rotateToolStripMenuItem_Click_1(object sender, EventArgs e)  {
+            if (rotateView == true)  {
                 HorizontalView();
             }
-            else if (settings.RotateSetting == true)
-            {
+            else if (rotateView == false) {
                 VerticalView();
             }
         }
 
-        private void button1_Click_1(object sender, EventArgs e) {
-            Close();
-            AddRecipeForm newRecipe = new AddRecipeForm();
-            newRecipe.ShowDialog();
+        //Load form
+        private void RecipeForm_Load_1(object sender, EventArgs e) {
+            if (rotateView == true) {
+                HorizontalView();
+            }
+            else if (rotateView == false) {
+                VerticalView();
+            }
+        }
+
+        //Rotate button
+        private void rotateToolStripMenuItem_Click(object sender, EventArgs e)  {
+            if (rotateView == false)  {
+                HorizontalView();
+            }
+            else if (rotateView == true)  {
+                VerticalView();
+            }
+
+            if (UpdateMain != null) {
+                Recipe rec = new Recipe();
+                rec.ViewSettings = rotateView;
+                UpdateMain(this, new CustomEventArgs(rec));
+            }
         }
     }
 }
