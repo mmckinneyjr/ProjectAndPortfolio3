@@ -10,6 +10,9 @@ using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Net;
+using MySql.Data.MySqlClient;
+using System.IO;
+
 
 namespace FinalProject_v1
 {
@@ -17,8 +20,24 @@ namespace FinalProject_v1
     {
         RecipeForm recipeForm;
         Recipe recipe;
+        Settings settings = new Settings();
+
+        string selectedListBoxDisplay = "search";
+
+        int screenSelection = 0;
 
         public EventHandler<CustomEventArgs> sendRecipeId;
+
+        public EventHandler<CustomSettings> sendSettings;
+
+
+
+
+        //Database Connection
+        MySqlConnection conn = new MySqlConnection();
+        DataTable favoritesDataTable = new DataTable();
+        string connectionString = DatabaseConnect.BuildConnectionString();
+
 
         //API Connection & Connection String
         WebClient apiConnection = new WebClient();
@@ -28,7 +47,11 @@ namespace FinalProject_v1
         public Form1() {
             InitializeComponent(); ;
             HandleClientWindowSize();
+            conn = DatabaseConnect.Connect(connectionString);
+            //RetrieveData();
         }
+
+
 
         //Create Search API string
         private void SearchAPI() {
@@ -38,42 +61,63 @@ namespace FinalProject_v1
 
         //Pull Data from Search API
         private void ReadSearchData() {
+            label_noResults.Text = "";
             listBox1.Items.Clear();
             string apiSearchData = apiConnection.DownloadString(searchAPI_p2);
             JObject rCount = JObject.Parse(apiSearchData);
 
-            for (int i = 0; i < int.Parse(rCount["count"].ToString()); i++) {
-                JObject search = JObject.Parse(apiSearchData);
-                Recipe r = new Recipe();
+            if (int.Parse(rCount["count"].ToString()) == 0) {
+                label_noResults.Text = "No Results Found";
+            }
 
-                r.Title = search["recipes"][i]["title"].ToString();
-                r.RecipeId = search["recipes"][i]["recipe_id"].ToString();
-                r.ImageLink = search["recipes"][i]["image_url"].ToString();
+            else {
+                for (int i = 0; i < int.Parse(rCount["count"].ToString()); i++) {
+                    JObject search = JObject.Parse(apiSearchData);
+                    Recipe r = new Recipe();
 
-                listBox1.Items.Add(r);
+                    r.Title = search["recipes"][i]["title"].ToString();
+                    r.RecipeId = search["recipes"][i]["recipe_id"].ToString();
+                    r.ImageLink = search["recipes"][i]["image_url"].ToString();
+                    r.SourceLink = search["recipes"][i]["source_url"].ToString();
+
+                    listBox1.Items.Add(r);
+                }
             }
         }
 
         //Search Button Click
         private void btn_search_Click(object sender, EventArgs e) {
+            btn_search.Visible = true;
+            listBox1.Visible = true;
+            listBox2.Visible = false;
             SearchAPI();
             ReadSearchData();
         }
 
+
+
+        //Open a search recipe item
         private void listBox1_DoubleClick(object sender, EventArgs e)  {
-            recipeForm = new RecipeForm();
-            sendRecipeId += recipeForm.GetRecipeHandler;
-            recipe = new Recipe();
 
-            textBox1.Text = ((Recipe)listBox1.SelectedItem).Title;
-            pictureBox1.Load(((Recipe)listBox1.SelectedItem).ImageLink);  
+            
 
-            if (sendRecipeId != null) {
-                sendRecipeId(this, new CustomEventArgs((Recipe)listBox1.SelectedItem));
+            if (selectedListBoxDisplay == "search") {
+                recipeForm = new RecipeForm();
+                sendRecipeId += recipeForm.GetRecipeHandler;
+                recipe = new Recipe();
+
+                textBox1.Text = ((Recipe)listBox1.SelectedItem).Title;
+
+                if (sendRecipeId != null) {
+                    sendRecipeId(this, new CustomEventArgs((Recipe)listBox1.SelectedItem));
+                }
+
+                recipeForm.ShowDialog();
             }
 
-            recipeForm.Show();
-         
+            else if (selectedListBoxDisplay == "myRecipes") {
+
+            }      
         }
 
 
@@ -82,11 +126,62 @@ namespace FinalProject_v1
 
 
 
+        //Vertical
+        private void VerticalView() {
+            Size = new Size(353, 702);
+            if (screenSelection == 0) { BackgroundImage = Properties.Resources.FinalBackground; }
+            else if (screenSelection == 1) { BackgroundImage = Properties.Resources.FinalBackground_newRecipe; }
+            else if (screenSelection == 2) { BackgroundImage = Properties.Resources.FinalBackground_myCookbook; }
+
+            textBox1.Location = new Point(72, 107);
+            btn_search.Size = new Size(256, 32);
+            btn_search.Location = new Point(42 ,541);
+            listBox1.Size = new Size(258, 355);
+            listBox1.Location = new Point(42,166);
+            listBox2.Size = new Size(258, 355);
+            listBox2.Location = new Point(42, 166);
+            menuStrip1.Size = new Size(25, 24);
+            menuStrip1.Location = new Point(40, 47);
+
+            btn_newRecipe.Location = new Point(126, 599);
+            btn_Home.Location = new Point(28, 599);
+            btn_myRecipes.Location = new Point(221, 599);
+
+            btn_clear.Location = new Point(266, 100);
+            label_noResults.Location = new Point(88, 297);
+
+            settings.RotateSetting = false;
+        }
+
+        //Horizontal
+        private void HorizontalView() {
+            Size = new Size(702, 353);
+            if (screenSelection == 0) { BackgroundImage = Properties.Resources.iPhoneXImageH; }
+            else if (screenSelection == 1) { BackgroundImage = Properties.Resources.FinalBackground_newRecipeH; }
+            else if (screenSelection == 2) { BackgroundImage = Properties.Resources.iPhoneXImage_myCookbookH; }
+
+            textBox1.Location = new Point(70,85);
+            btn_search.Location = new Point(45, 205);
+            listBox1.Location = new Point(345, 40);
+            listBox1.Size = new Size(290, 200);
+            listBox2.Location = new Point(345, 40);
+            listBox2.Size = new Size(290, 200);
+            menuStrip1.Size = new Size(25, 24);
+            menuStrip1.Location = new Point(40, 35);
+
+            btn_Home.Location = new Point(200,255);
+            btn_newRecipe.Location = new Point(300, 255);
+            btn_myRecipes.Location = new Point(400, 255);
+
+            btn_clear.Location = new Point(270, 78);
+            label_noResults.Location = new Point(415, 100);
 
 
 
 
 
+            settings.RotateSetting = true;
+        }
 
 
 
@@ -109,6 +204,10 @@ namespace FinalProject_v1
         //Call this method AFTER InitializeComponent() inside the form's constructor.
         void HandleClientWindowSize()
         {
+            StartPosition = FormStartPosition.Manual;
+            this.Left = 600;
+            this.Top = 100;
+
             //Modify ONLY these float values
             float HeightValueToChange = 1.3f;
             float WidthValueToChange = 6.0f;
@@ -122,15 +221,103 @@ namespace FinalProject_v1
             if (width < Size.Width)
                 width = Size.Width;
             this.Size = new Size(width, height);
+
+            
+
+          //  textBox2.Text = btn_clear.Location.X.ToString() + ", " + btn_Home.Location.Y.ToString();
+            textBox3.Text = label_noResults.Location.X.ToString() + ", " + label_noResults.Location.Y.ToString();
+
+
         }
 
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
 
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btn_search_Click(this, new EventArgs());
+
+
+
+        //Rotate screen button
+        private void rotateToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (settings.RotateSetting == false)  {
+                HorizontalView();
             }
+            else if (settings.RotateSetting == true)  {
+                VerticalView();
+            }
+        }
+
+
+  
+
+
+        //New recipe Button
+        private void button2_Click(object sender, EventArgs e) {
+            screenSelection = 1;
+            AddRecipeForm newRecipe = new AddRecipeForm();
+
+            sendSettings += newRecipe.newSettings;
+            if (sendSettings != null)  {
+                sendSettings(this,  new CustomSettings(settings));
+            }
+
+            newRecipe.ShowDialog();
+        }
+
+        //My recipe button
+        private void btn_myRecipes_Click(object sender, EventArgs e) {
+            screenSelection = 2;
+
+            if (settings.RotateSetting == false) { BackgroundImage = Properties.Resources.FinalBackground_myCookbook; }
+            else if (settings.RotateSetting == true) { BackgroundImage = Properties.Resources.iPhoneXImage_myCookbookH; }
+            btn_clear.Visible = false;
+            textBox1.Visible = false;
+            btn_search.Visible = false;
+            listBox1.Visible = false;
+            listBox2.Visible = true;
+
+            listBox2.Items.Clear();
+            favoritesDataTable.Clear();
+
+            selectedListBoxDisplay = "myRecipes";
+
+            string sql = "SELECT recipeId, title, ingredients, imageUrl, sourceUrl FROM Recipes;";
+
+            MySqlDataAdapter adr = new MySqlDataAdapter(sql, conn);
+
+            adr.Fill(favoritesDataTable);
+            conn.Close();
+
+            Recipe r = new Recipe();
+
+            for (int i = 0; i < favoritesDataTable.Select().Length; i++)  {
+                r.RecipeId = favoritesDataTable.Rows[i]["recipeId"].ToString();
+                r.Title = favoritesDataTable.Rows[i]["title"].ToString();
+                r.Ingred = favoritesDataTable.Rows[i]["ingredients"].ToString();
+                r.ImageLink = favoritesDataTable.Rows[i]["imageUrl"].ToString();
+                r.SourceLink = favoritesDataTable.Rows[i]["sourceUrl"].ToString();
+
+                listBox2.Items.Add(r);
+            }
+
+
+        }
+
+        //Home Button
+        private void button1_Click(object sender, EventArgs e) {
+            screenSelection = 0;
+
+            if (settings.RotateSetting == false) { BackgroundImage = Properties.Resources.FinalBackground;  }
+            else if (settings.RotateSetting == true) { BackgroundImage = Properties.Resources.iPhoneXImageH; }
+            textBox1.Visible = true;
+            btn_clear.Visible = true;
+            btn_search.Visible = true;
+            listBox1.Visible = true;
+            listBox2.Visible = false;
+        }
+
+
+        //Clear search field and listbox items
+        private void button2_Click_1(object sender, EventArgs e) {
+            textBox1.Text = "";
+            listBox1.Items.Clear();
         }
     }
 }

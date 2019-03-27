@@ -11,6 +11,7 @@ namespace FinalProject_v1
         string title;
         string recipeId;
         string imageLink;
+        string sourceLink;
         List<string> ingredients;
         string ingred;
 
@@ -27,6 +28,11 @@ namespace FinalProject_v1
         public string ImageLink  {
             get { return imageLink; }
             set { imageLink = value; }
+        }
+
+        public string SourceLink  {
+            get { return sourceLink; }
+            set { sourceLink = value; }
         }
 
         public List<string> Ingredients  {
