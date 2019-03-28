@@ -85,9 +85,9 @@ namespace FinalProject_v1
             txtBox_ingredients.Location = new Point(44, 246);
             label3.Location = new Point(42, 279);
             txtBox_directions.Location = new Point(44, 295);
-            label4.Location = new Point(42, 331);
+            label4.Location = new Point(42, 381);
             txtBox_imageUrl.Location = new Point(44, 345);
-            label5.Location = new Point(42, 381);
+            label5.Location = new Point(42, 331);
             txtBox_sourceUrl.Location = new Point(44, 395);
             btn_back.Location = new Point(243, 54);
             label6.Location = new Point(102, 234);
@@ -117,9 +117,9 @@ namespace FinalProject_v1
             txtBox_ingredients.Location = new Point(374, 95);
             label3.Location = new Point(372, 120);
             txtBox_directions.Location = new Point(374, 135);
-            label4.Location = new Point(372, 160);
+            label4.Location = new Point(372, 200);
             txtBox_imageUrl.Location = new Point(374, 175);
-            label5.Location = new Point(372, 200);
+            label5.Location = new Point(372, 160);
             txtBox_sourceUrl.Location = new Point(374, 215);
             btn_back.Location = new Point(255, 35);
             label6.Location = new Point(432, 83);
@@ -208,19 +208,15 @@ namespace FinalProject_v1
 
             r = cmd.ExecuteReader();
 
-            while (r.Read())
-            {
+            while (r.Read()) {
                 test = r.GetString("recipeId");
 
-                if (test != rand)
-                {
+                if (test != rand)  {
                     valID = rand;
                 }
 
-                else
-                {
-                    while (test == rand)
-                    {
+                else  {
+                    while (test == rand) {
                         rand = RandomString;
                         valID = rand;
                     }
@@ -233,26 +229,27 @@ namespace FinalProject_v1
 
 
         //Load form
-        private void AddRecipeForm_Load_1(object sender, EventArgs e)
-        {
-            if (rotateView == true)
-            {
+        private void AddRecipeForm_Load_1(object sender, EventArgs e) {
+            if (rotateView == true) {
                 HorizontalView();
             }
-            else if (rotateView == false)
-            {
+            else if (rotateView == false) {
                 VerticalView();
             }
         }
 
-        private void btn_myRecipes_Click(object sender, EventArgs e)
-        {
-            if (previousScreen != null)
-            {
+        //my recipes button
+        private void btn_myRecipes_Click(object sender, EventArgs e) {
+            if (previousScreen != null)  {
                 previousScreen(this, new EventArgs());
             }
             Close();
 
+        }
+
+        //Exit application
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
+            Application.Exit();
         }
     }
 }

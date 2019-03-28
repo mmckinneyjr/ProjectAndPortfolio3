@@ -20,10 +20,14 @@ namespace FinalProject_v1
 
 
         public EventHandler<CustomEventArgs> UpdateMain;
+        public EventHandler previousScreen;
+        public EventHandler previousScreenHome;
+
         Recipe rec;
 
         Buttons buttons = new Buttons();
         public bool rotateView;
+        public string addvisable = "";
 
 
         //Database Connection
@@ -56,7 +60,7 @@ namespace FinalProject_v1
 
         //API connection
         WebClient apiConnection = new WebClient();
-        string getAPI_p1 = "https://www.food2fork.com/api/get?key=f7e2b5345b1b1fe870b0c9e11f5f37d5&rId=";
+        string getAPI_p1 = "https://www.food2fork.com/api/get?key=dcff82f824fc70f1d85597f6f4f1278d&rId=";
         string getAPI_p2;
 
         //Create Get API string
@@ -85,6 +89,8 @@ namespace FinalProject_v1
         //Get myrecipe book item
             public void MyRecipeHandler(object sender, CustomEventArgs e) {
             rec = new Recipe();
+
+
             rec.RecipeId = e.sendRecipe.RecipeId;
             label_title.Text = e.sendRecipe.Title;
             foreach (var i in e.sendRecipe.Ingredients) {
@@ -124,6 +130,7 @@ namespace FinalProject_v1
             label_source.Location = new Point(90, 524);
             label_title.Location = new Point(47, 100);
             pictureBox_recipeImage.Location = new Point(47, 162);
+            btn_myRecipe.Location = new Point(221, 599);
             rotateView = false;
         }
 
@@ -133,25 +140,17 @@ namespace FinalProject_v1
             BackgroundImage = Properties.Resources.iPhoneXImage_H;
             menuStrip1.Size = new Size(25, 24);
             menuStrip1.Location = new Point(40, 35);
-
             btn_home.Location = new Point(200, 255);
             btn_new.Location = new Point(300, 255);
-
-
             label1.Location = new Point(370, 30);
             listBox2.Location = new Point(370, 55);
-            //label2.Location = new Point(48, 524);
+            btn_myRecipe.Location = new Point(400, 255);
             btn_back.Location = new Point(255, 35);
             pictureBox_recipeImage.Location = new Point(47,115);
             label2.Location = new Point(370, 228);
             label_source.Location = new Point(410,228);
             label_title.Location = new Point(47, 75);
-
-
-            label_title.FlatStyle = FlatStyle.Flat;
-        
-
-
+            label_title.FlatStyle = FlatStyle.Flat;      
             rotateView = true;
         }
 
@@ -178,7 +177,11 @@ namespace FinalProject_v1
             this.Size = new Size(width, height);
 
             buttons.ButtonsTrans(btn_back);
+            buttons.ButtonsTrans(btn_new);
+            buttons.ButtonsTrans(btn_home);
+            buttons.ButtonsTrans(btn_myRecipe);
 
+         
         }
 
         //Back Button
@@ -189,8 +192,8 @@ namespace FinalProject_v1
         //Save to favorites button
         private void btn_search_Click(object sender, EventArgs e)  {
             SaveToCookBook();
+            MessageBox.Show("Recipe has been added\r\nto your Cookbook");
         }
-
 
         //Add New Recipe Form
         private void button1_Click_1(object sender, EventArgs e) {
@@ -199,9 +202,7 @@ namespace FinalProject_v1
             newRecipe.ShowDialog();
             
             Close();
-
         }
-
 
         //Rotate Buttong
         private void rotateToolStripMenuItem_Click_1(object sender, EventArgs e)  {
@@ -221,6 +222,14 @@ namespace FinalProject_v1
             else if (rotateView == false) {
                 VerticalView();
             }
+
+            if (addvisable == "search") {
+                btn_add.Visible = true;
+            }
+            else if (addvisable == "myRecipes") {
+                btn_add.Visible = false;
+
+            }
         }
 
         //Rotate button
@@ -237,6 +246,27 @@ namespace FinalProject_v1
                 rec.ViewSettings = rotateView;
                 UpdateMain(this, new CustomEventArgs(rec));
             }
+        }
+
+        //back to my recipe
+        private void btn_myRecipe_Click(object sender, EventArgs e)  {
+            if (previousScreen != null)  {
+                previousScreen(this, new EventArgs());
+            }
+            Close();
+        }
+
+        //Exit application
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)  {
+            Application.Exit();
+        }
+
+        private void btn_home_Click(object sender, EventArgs e)  {
+            if (previousScreenHome != null)
+            {
+                previousScreenHome(this, new EventArgs());
+            }
+            Close();
         }
     }
 }

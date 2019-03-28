@@ -8,6 +8,7 @@ using MySql.Data.MySqlClient;
 using System.Linq;
 
 
+//NOTE THE FOOD2FORK API ONLY ALLOWS FOR 50 QUERIES A DAY
 
 namespace FinalProject_v1
 {
@@ -18,7 +19,9 @@ namespace FinalProject_v1
         Recipe recipe;
         Buttons buttons = new Buttons();
         public EventHandler<CustomEventArgs> sendRecipeId;
-        string selectedListBoxDisplay = "search";
+        public EventHandler<CustomEventArgs> sendMyRecipeId;
+
+        public string selectedListBoxDisplay = "search";
         int screenSelection = 0;
 
         public bool rotateView = false;
@@ -30,7 +33,7 @@ namespace FinalProject_v1
 
         //API Connection & Connection String
         WebClient apiConnection = new WebClient();
-        string searchAPI_p1 = "https://www.food2fork.com/api/search?key=f7e2b5345b1b1fe870b0c9e11f5f37d5&q=";
+        string searchAPI_p1 = "https://www.food2fork.com/api/search?key=dcff82f824fc70f1d85597f6f4f1278d&q=";
         string searchAPI_p2;
 
         public Form1() {
@@ -79,41 +82,59 @@ namespace FinalProject_v1
             listBox2.Visible = false;
             SearchAPI();
             ReadSearchData();
+
         }
 
         //Open a search recipe item
-        private void listBox1_DoubleClick(object sender, EventArgs e)  {       
+        private void listBox1_DoubleClick(object sender, EventArgs e)  {     
+            
+        
                 RecipeForm recipeForm = new RecipeForm();
                 sendRecipeId += recipeForm.GetRecipeHandler;
-                recipe = new Recipe();
+                recipeForm.previousScreen += btn_myRecipes_Click;
+     
+            recipe = new Recipe();
 
-                textBox1.Text = ((Recipe)listBox1.SelectedItem).Title;
+            recipeForm.addvisable = selectedListBoxDisplay;
+
+            textBox1.Text = ((Recipe)listBox1.SelectedItem).Title;
 
                 if (sendRecipeId != null) {
                     sendRecipeId(this, new CustomEventArgs((Recipe)listBox1.SelectedItem));
                 }
                 recipeForm.rotateView = rotateView;
                 recipeForm.UpdateMain += rotateToolStripMenuItem_Click;
-                recipeForm.ShowDialog();
+            recipeForm.previousScreenHome += button1_Click;
+            recipeForm.addvisable = "search";
+            recipeForm.ShowDialog();
+
         }
 
         //Open a my recipe item
         private void listBox2_DoubleClick(object sender, EventArgs e) {
             RecipeForm recipeForm = new RecipeForm();
-            sendRecipeId += recipeForm.MyRecipeHandler;
             recipe = new Recipe();
 
-            if (sendRecipeId != null)  {
+            recipeForm.addvisable = selectedListBoxDisplay;
+
+            sendMyRecipeId += recipeForm.MyRecipeHandler;
+
+            if (sendMyRecipeId != null)  {
+                recipe.RecipeId = ((Recipe)listBox2.SelectedItem).RecipeId;
                 recipe.Title = ((Recipe)listBox2.SelectedItem).Title;
                 recipe.Ingredients = ((Recipe)listBox2.SelectedItem).Ingred.Split(',').ToList();
                 recipe.ImageLink = ((Recipe)listBox2.SelectedItem).ImageLink;
                 recipe.SourceLink = ((Recipe)listBox2.SelectedItem).SourceLink;
-                sendRecipeId(this, new CustomEventArgs(recipe));
+                sendMyRecipeId(this, new CustomEventArgs(recipe));
 
             }
             recipeForm.rotateView = rotateView;
             recipeForm.UpdateMain += rotateToolStripMenuItem_Click;
+            recipeForm.previousScreenHome += button1_Click;
+            recipeForm.addvisable = "myRecipes";
             recipeForm.ShowDialog();
+
+
         }
 
         //Vertical view
@@ -226,6 +247,9 @@ namespace FinalProject_v1
 
         //My recipe button
         private void btn_myRecipes_Click(object sender, EventArgs e) {
+            selectedListBoxDisplay = "myRecipes";
+            
+
             screenSelection = 2;
 
             if (rotateView == false) { BackgroundImage = Properties.Resources.FinalBackground_myCookbook; }
@@ -235,11 +259,8 @@ namespace FinalProject_v1
             btn_search.Visible = false;
             listBox1.Visible = false;
             listBox2.Visible = true;
-
             listBox2.Items.Clear();
             favoritesDataTable.Clear();
-
-            selectedListBoxDisplay = "myRecipes";
 
             string sql = "SELECT recipeId, title, ingredients, imageUrl, sourceUrl FROM Recipes;";
 
@@ -248,9 +269,10 @@ namespace FinalProject_v1
             adr.Fill(favoritesDataTable);
             conn.Close();
 
-            Recipe r = new Recipe();
 
             for (int i = 0; i < favoritesDataTable.Select().Length; i++) {
+                Recipe r = new Recipe();
+
                 r.RecipeId = favoritesDataTable.Rows[i]["recipeId"].ToString();
                 r.Title = favoritesDataTable.Rows[i]["title"].ToString();
                 r.Ingred = favoritesDataTable.Rows[i]["ingredients"].ToString();
@@ -260,7 +282,7 @@ namespace FinalProject_v1
                 listBox2.Items.Add(r);
             }
 
-
+            
         }
 
         //Home Button
@@ -297,6 +319,9 @@ namespace FinalProject_v1
             Application.Exit();
         }
 
-       
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

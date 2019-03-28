@@ -183,7 +183,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(80, 91);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(28, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(268, 42);
             this.menuStrip1.TabIndex = 18;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -205,6 +205,7 @@
             // rotateToolStripMenuItem
             // 
             this.rotateToolStripMenuItem.Name = "rotateToolStripMenuItem";
+            this.rotateToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
             this.rotateToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
             this.rotateToolStripMenuItem.Text = "Rotate";
             this.rotateToolStripMenuItem.Click += new System.EventHandler(this.rotateToolStripMenuItem_Click);
@@ -217,8 +218,10 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // btn_back
             // 
@@ -238,7 +241,6 @@
             this.btn_home.Name = "btn_home";
             this.btn_home.Size = new System.Drawing.Size(189, 91);
             this.btn_home.TabIndex = 20;
-            this.btn_home.Text = "New";
             this.btn_home.UseVisualStyleBackColor = false;
             this.btn_home.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -249,7 +251,6 @@
             this.btn_myRecipes.Name = "btn_myRecipes";
             this.btn_myRecipes.Size = new System.Drawing.Size(189, 91);
             this.btn_myRecipes.TabIndex = 21;
-            this.btn_myRecipes.Text = "My Recipes";
             this.btn_myRecipes.UseVisualStyleBackColor = false;
             this.btn_myRecipes.Click += new System.EventHandler(this.btn_myRecipes_Click);
             // 
